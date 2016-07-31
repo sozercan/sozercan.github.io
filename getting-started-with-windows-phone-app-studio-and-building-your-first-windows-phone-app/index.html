@@ -1,0 +1,274 @@
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Getting started with Windows Phone App Studio and building your first Windows Phone app</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=44c55ef586">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+
+    <link rel="canonical" href="http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/">
+    <meta name="referrer" content="origin-when-cross-origin">
+    
+    <meta property="og:site_name" content="Sertaç Özercan">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Getting started with Windows Phone App Studio and building your first Windows Phone app">
+    <meta property="og:description" content="Microsoft recently released App Studio, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog,">
+    <meta property="og:url" content="http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/">
+    <meta property="article:published_time" content="2013-09-03T16:18:16.000Z">
+    <meta property="article:modified_time" content="2013-09-05T12:51:25.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Getting started with Windows Phone App Studio and building your first Windows Phone app">
+    <meta name="twitter:description" content="Microsoft recently released App Studio, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog,">
+    <meta name="twitter:url" content="http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Sertaç Özercan">
+    <meta name="twitter:site" content="@sozercan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sertaç Özercan",
+        "logo": "http://my-ghost-blog.com/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Sertaç Özercan",
+        "image": "//www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&d=mm&r=x",
+        "url": "http://my-ghost-blog.com/author/sozercan/",
+        "sameAs": [
+            "http://sertacozercan.com"
+        ]
+    },
+    "headline": "Getting started with Windows Phone App Studio and building your first Windows Phone app",
+    "url": "http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/",
+    "datePublished": "2013-09-03T16:18:16.000Z",
+    "dateModified": "2013-09-05T12:51:25.000Z",
+    "description": "Microsoft recently released App Studio, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog,"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.9">
+    <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=44c55ef586">
+</head>
+
+<body class="post-template">
+
+    <div id="sidebar">
+        <div id="sidebar-content" class="inner">
+            
+            <h2 class="blog-title"><a href="http://my-ghost-blog.com">Sertaç Özercan</a></h2>
+            <h3 class="blog-description"></h3>
+
+            <form id="search">
+                <input id="search-field" placeholder="Search">
+            </form>
+
+            <div id="sidebar-links">
+                <ul id="subscription-links">
+                    <li><a target="_blank" href="http://my-ghost-blog.com/rss/"><i class="fa fa-rss"></i>Subscribe via RSS</a></li>
+                    <!-- No support yet
+                    <li><a target="_blank" href=" "><i class="fa fa-envelope"></i>Subscribe via email<a></li>
+                    -->
+                </ul>
+                <ul id="navigation">
+                        <li class="nav-home" role="presentation"><a href="../"><i class="fa fa-navicon"></i>Home</a></li>
+    <li class="nav-projects" role="presentation"><a href="../projects/"><i class="fa fa-navicon"></i>Projects</a></li>
+    <li class="nav-about" role="presentation"><a href="../about-me"><i class="fa fa-navicon"></i>About</a></li>
+    <li class="nav-publications" role="presentation"><a href="../publications/"><i class="fa fa-navicon"></i>Publications</a></li>
+
+                </ul>
+                <ul id="sidebar-external">
+                    <li><a href="https://twitter.com/sozercan"><i class="fa fa-twitter"></i>Twitter</a></li>
+<li><a href="https://github.com/sozercan"><i class="fa fa-github"></i>GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/sozercan"><i class="fa fa-linkedin"></i>LinkedIn</a></li>
+<li><a target="_blank" href="mailto:sozercan@gmail.com"><i class="fa fa-envelope"></i>Contact</a></li>                </ul>
+            </div>
+
+            <footer class="site-footer">
+                <section class="copyright">© 2016 <a href="mailto:sozercan@gmail.com">Sertaç Özercan</a></section>
+                <section class="poweredby">
+                    <i class="icon-ghost"></i><a href="https://ghost.org">Ghost</a> -
+                    <a href="https://github.com/dlecina/StayPuft">StayPuft theme</a>
+                </section>
+            </footer>
+        </div>
+    </div>
+
+    <main>
+        <div class="main-inner">
+            <section id="results"></section>
+            
+
+
+    <article class="post">
+
+        <header class="post-header">
+
+            <h1 class="post-title">Getting started with Windows Phone App Studio and building your first Windows Phone app</h1>
+            
+            <section class="post-meta">
+                <span class="post-time">
+                    <i class="fa fa-calendar"></i>
+                    <time datetime="2013-09-03" class="timeago">3 years ago</time>
+                    <time datetime="2013-09-03" class="fulldate">September 3rd, 2013</time>
+                </span>
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Microsoft recently released <a href="http://apps.windowsstore.com/default.htm">App Studio</a>, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog, and thought why not give the new App Studio a try!</p>
+
+<p>There are companies and individuals that have zero or minimal software development experience but they want to create apps to show their portfolio/products. Maybe you just want to create an app for your favorite local sports team. App Studio can be a great tool to get started on building your first Windows Phone app or maybe even your first mobile app!</p>
+
+<p>It is very easy to get started, go to <a href="http://apps.windowsstore.com/default.htm">App Studio</a>, and either select from a template or from a blank project. Templates provide pre-defined sections and menus so it is easy to customize them with your own content. This tutorial creates an app from a blank template.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-1.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-1-150x115.png" alt="AppStudio-1" title=""></a></p>
+
+<p>Next step is to create a title, description and image for your app.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-2.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-2-150x116.png" alt="AppStudio-2" title=""></a></p>
+
+<p>You need to create sections for your app. If you have done WP development before, each section is a panorama item. In each section, you need to give a name to the section and datasource.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-3.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-3-150x116.png" alt="AppStudio-3" title=""></a></p>
+
+<p>Datasource can be one of these in each section:</p>
+
+<p>•             RSS feed,</p>
+
+<p>•             YouTube search query or channel,</p>
+
+<p>•             Flickr search query or username,</p>
+
+<p>•             HTML5 page,</p>
+
+<p>•             Collection (which is a list of items, and each item includes a title, subtitle, image and description)</p>
+
+<p>You can also customize the main and detail pages of each section. Main page is basically the top view (list of items), and detail page is when you click on an item to get more information. For example, list of YouTube videos and playing an individual video.</p>
+
+<p>The layout of both the main and detail pages can be customized from a list of text, to pictures, to pictures with text, and many more.</p>
+
+<p>Each detail page automatically comes with Text-to-speech, share and pin to start features enabled by default.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-4.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-4-150x116.png" alt="AppStudio-4" title=""></a>  <a href="http://sertacozercan.com/wp-content/uploads/AppStudio-5.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-5-150x116.png" alt="AppStudio-5" title=""></a></p>
+
+<p>Once you are done adding sections, you can customize the app style, including the accent, foreground and app bar colors, and background image.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-6.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-6-150x116.png" alt="AppStudio-6" title=""></a></p>
+
+<p>You can also customize the tile (cycle, flip or iconic), and splash and lock screen.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-7.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-7-150x116.png" alt="AppStudio-7" title=""></a>  <a href="http://sertacozercan.com/wp-content/uploads/AppStudio-8.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-8-150x116.png" alt="AppStudio-8" title=""></a></p>
+
+<p>Finally, your app will be generated and you can download the source code (visual studio project), download the publish package (to publish directly to the Windows Phone Store), or you can install and test on your device by scanning the certificate, and then the app QR codes. This is also an incredibly useful way to use QR codes.</p>
+
+<p>You can also develop on the Visual Studio project later on when you are ready to add more advanced features.</p>
+
+<p>To download and install my app; first, scan this certificate:</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-cert.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-cert.png" alt="AppStudio-cert" title=""></a></p>
+
+<p>Then scan this for the app itself, and it will automatically download to your phone:</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-app.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-app.png" alt="AppStudio-app" title=""></a></p>
+
+<p>Here are some screenshots from the finished app:</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/AppStudio-11.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-11-90x150.png" alt="AppStudio-11" title="">  </a> <a href="http://sertacozercan.com/wp-content/uploads/AppStudio-12.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-12-90x150.png" alt="AppStudio-12" title=""></a>   <a href="http://sertacozercan.com/wp-content/uploads/AppStudio-14.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-14-90x150.png" alt="AppStudio-14" title=""></a>  <a href="http://sertacozercan.com/wp-content/uploads/AppStudio-13.png"><img src="http://sertacozercan.com/wp-content/uploads/AppStudio-13-90x150.png" alt="AppStudio-13" title=""></a></p>
+
+<p>I am also submitting the app to be published on the Windows Phone Store, so it should be on the Store soon.</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+                <figure class="author-image">
+                    <a class="img" href="../author/sozercan/" style="background-image: url(http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s&amp;)"><span class="hidden">Sertaç Özercan's Picture</span></a>
+                </figure>
+
+                <section class="author">
+                    <h4><a href="../author/sozercan/">Sertaç Özercan</a></h4>
+
+                        <p>Read <a href="../author/sozercan/">more posts</a> by this author.</p>
+                    <div class="author-meta">
+                        <span class="author-location icon-location">San Francisco, CA</span>
+                        <span class="author-link icon-link"><a href="http://sertacozercan.com">http://sertacozercan.com</a></span>
+                    </div>
+                </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <div class="share-icons">
+                    <a class="fa fa-twitter-square" href="https://twitter.com/intent/tweet?text=Getting%20started%20with%20Windows%20Phone%20App%20Studio%20and%20building%20your%20first%20Windows%20Phone%20app&amp;url=http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="fa fa-facebook-square" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="fa fa-google-plus-square" href="https://plus.google.com/share?url=http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </div>
+            </section>
+
+        </footer>
+
+        <section class="post-comments">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'sozercan'; // required: replace example with your forum shortname
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+
+        </div>
+    </main>
+
+    
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/prism-loader.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/prism.js?v=44c55ef586"></script>
+    <script src="../assets/js/jquery.ghostHunter.min.js?v=44c55ef586"></script>
+    <script>
+        $("#search-field").ghostHunter({
+            rss : "http://my-ghost-blog.com/rss/",
+            results : "#results",
+            onKeyUp : true,
+            zeroResultsInfo : false
+        });
+    </script>
+</body>
+

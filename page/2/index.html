@@ -1,4 +1,5 @@
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,10 +10,10 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../../favicon.ico">
+    
 
-    <link rel="stylesheet" type="text/css" href="../../assets/css/screen.css?v=7481804497">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/screen.css?v=44c55ef586">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
 
     <link rel="canonical" href="http://my-ghost-blog.com/page/2/">
     <meta name="referrer" content="origin-when-cross-origin">
@@ -20,138 +21,316 @@
     <link rel="next" href="http://my-ghost-blog.com/page/3/">
     <meta name="generator" content="Ghost 0.9">
     <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/prism.css?v=44c55ef586">
 </head>
-<body class="paged archive-template nav-closed">
 
-    <div class="nav">
-    <h3 class="nav-title">Menu</h3>
-    <a href="index.html#" class="nav-close">
-        <span class="hidden">Close</span>
-    </a>
-    <ul>
-            <li class="nav-home" role="presentation"><a href="../../">Home</a></li>
-            <li class="nav-projects" role="presentation"><a href="../../projects/">Projects</a></li>
-            <li class="nav-about" role="presentation"><a href="../../about-me">About</a></li>
-            <li class="nav-publications" role="presentation"><a href="../../publications/">Publications</a></li>
-            <li class="nav-contact" role="presentation"><a href="../../contact/">Contact</a></li>
-    </ul>
-        <a class="subscribe-button icon-feed" href="http://my-ghost-blog.com/rss/">Subscribe</a>
-</div>
-<span class="nav-cover"></span>
+<body class="paged archive-template">
 
+    <div id="sidebar">
+        <div id="sidebar-content" class="inner">
+            
+            <h2 class="blog-title"><a href="http://my-ghost-blog.com">Sertaç Özercan</a></h2>
+            <h3 class="blog-description"></h3>
 
-    <div class="site-wrapper">
+            <form id="search">
+                <input id="search-field" placeholder="Search">
+            </form>
 
-        
-<header class="main-header " style="background-image: url(http://www.sanfrancisco.travel/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg)">
-    <nav class="main-nav overlay clearfix">
-        
-            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
-    </nav>
-    <div class="vertical">
-        <div class="main-header-content inner">
-            <h1 class="page-title">Sertaç Özercan</h1>
-            <h2 class="page-description"></h2>
+            <div id="sidebar-links">
+                <ul id="subscription-links">
+                    <li><a target="_blank" href="http://my-ghost-blog.com/rss/"><i class="fa fa-rss"></i>Subscribe via RSS</a></li>
+                    <!-- No support yet
+                    <li><a target="_blank" href=" "><i class="fa fa-envelope"></i>Subscribe via email<a></li>
+                    -->
+                </ul>
+                <ul id="navigation">
+                        <li class="nav-home" role="presentation"><a href="../../"><i class="fa fa-navicon"></i>Home</a></li>
+    <li class="nav-projects" role="presentation"><a href="../../projects/"><i class="fa fa-navicon"></i>Projects</a></li>
+    <li class="nav-about" role="presentation"><a href="../../about-me"><i class="fa fa-navicon"></i>About</a></li>
+    <li class="nav-publications" role="presentation"><a href="../../publications/"><i class="fa fa-navicon"></i>Publications</a></li>
+
+                </ul>
+                <ul id="sidebar-external">
+                    <li><a href="https://twitter.com/sozercan"><i class="fa fa-twitter"></i>Twitter</a></li>
+<li><a href="https://github.com/sozercan"><i class="fa fa-github"></i>GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/sozercan"><i class="fa fa-linkedin"></i>LinkedIn</a></li>
+<li><a target="_blank" href="mailto:sozercan@gmail.com"><i class="fa fa-envelope"></i>Contact</a></li>                </ul>
+            </div>
+
+            <footer class="site-footer">
+                <section class="copyright">© 2016 <a href="mailto:sozercan@gmail.com">Sertaç Özercan</a></section>
+                <section class="poweredby">
+                    <i class="icon-ghost"></i><a href="https://ghost.org">Ghost</a> -
+                    <a href="https://github.com/dlecina/StayPuft">StayPuft theme</a>
+                </section>
+            </footer>
         </div>
     </div>
-    <a class="scroll-down icon-arrow-left" href="index.html#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
-</header>
 
-<main id="content" class="content" role="main">
+    <main>
+        <div class="main-inner">
+            <section id="results"></section>
+            
 
-    <div class="extra-pagination inner">
-    <nav class="pagination" role="navigation">
-        <a class="newer-posts" href="../../"><span aria-hidden="true">←</span> Newer Posts</a>
-    <span class="page-number">Page 2 of 6</span>
-        <a class="older-posts" href="../3/">Older Posts <span aria-hidden="true">→</span></a>
-</nav>
-
-</div>
 
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2014/06/28/using-azure-mobile-services-as-an-api-proxy/">Using Azure Mobile Services as an API proxy</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more. In this post, we <a class="read-more" href="../../2014/06/28/using-azure-mobile-services-as-an-api-proxy/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../using-azure-mobile-services-as-an-api-proxy/">Using Azure Mobile Services as an API proxy</a></h1>
         
-        <time class="post-date" datetime="2014-06-28">28 June 2014</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2014-06-28" class="timeago">2 years ago</time>
+                <time datetime="2014-06-28" class="fulldate">June 28th, 2014</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <p>API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more.</p>
+
+<p>In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services.</p>
+
+<h4 id="twitter">Twitter</h4>
+
+<p>Since Twitter switched to v1.1 API (and retired access to the v1 API), it might be a little tricky to access to Twitter API since it now uses oauth authentication to get any data. Azure Mobile Services makes it very easy to access Twitter (and Facebook, Google and Microsoft Live Connect).</p>
+
+<p>For this example, we are going to be retrieve Twitter v1.1 API data by authenticating Twitter on Azure Mobile Services and setting up an API proxy for any search queries.</p>
+
+<p>First thing is to create a Twitter app at <a href="https://apps.twitter.com/">https://apps.twitter.com/</a></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-1.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-1-150x107.png" alt="twitterAPI-1" title=""></a></p>
+
+<p>Once the app is registered, it will provide 4 types of keys: API key, API secret, access token and access token secret, which we will use in the Azure mobile service.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-2.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-2-150x107.png" alt="twitterAPI-2" title=""></a></p>
+
+<p>Now, in Azure portal at <a href="https://manage.windowsazure.com">https://manage.windowsazure.com</a>, create a new mobile service</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-3.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-3-150x107.png" alt="twitterAPI-3" title=""></a></p>
+
+<p>And then create a new API. For GET request, you might want to change it as “Everyone”, so anyone without a key can access it.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-4.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-4-150x107.png" alt="twitterAPI-4" title=""></a></p>
+
+<p>In the API section, use this code and replace API keys with your Twitter app. This provides a response to a GET method that includes a single query, and uses Twitter API to authenticate to twitter and search for the given query and respond back with the results. GET request should be to</p>
+
+<p>https://<servicename>.azure-mobile.net/api/<apiname>?q=<searchquery></searchquery></apiname></servicename></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-5.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-5-150x107.png" alt="twitterAPI-5" title=""></a></p>
+
+<p>var http = require('request'); exports.get = function (request, response) { var twitterUrl = "<a href="https://api.twitter.com/1.1/search/tweets.json?q=%23">https://api.twitter.com/1.1/search/tweets.json?q=%23</a>" + request.query.q; // Create a new request with OAuth credentials. http.get({ url: twitterUrl, oauth: { consumer<em>key: "<api key>", consumer</api></em>secret: "<api secret>", token: "<access token>", token_secret: "<access secret>" }}, function (error, resp, body) { if (!error &amp;&amp; resp.statusCode <mark> 200) { response.send(200, body); } else { console.error('Could not contact Twitter'); } }); }</mark></access></access></api></p>
+
+<h4 id="ordrin">Ordrin</h4>
+
+<p><a href="http://ordr.in/">Ordrin </a>is an API provider that enables food ordering for any applications. Unfortunately, they don’t support Cross Origin Resource Sharing (CORS) yet, so xhr requests from the web is not accepted by their server, since the request isn’t in the list of Access-Control-Allow-Origin that Ordrin accepts.</p>
+
+<p>To get around this limitation, we can set up an API proxy through Azure Mobile Services to route all request to the API there.</p>
+
+<p>To get started, go to <a href="https://hackfood.ordr.in/">https://hackfood.ordr.in/</a> and register and create a new app.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-1.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-1-150x92.png" alt="Ordrin-1" title=""></a></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-2.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-2-150x92.png" alt="Ordrin-2" title=""></a></p>
+
+<p>Create a new API just like in the previous example and replace the secret key.</p>
+
+<p>In this API call, we are going to be requesting list of restaurants in the area that delivers ASAP, and that requires a zip, city, and address. GET request should be sent to: (this time we have 3 different queries)</p>
+
+<p>https://<servicename>.azure-mobile.net/api/<apiname>?zip=<searchquery>?city=<searchquery>?address=<searchquery></searchquery></searchquery></searchquery></apiname></servicename></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-3.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-3-150x107.png" alt="Ordrin-3" title=""></a></p>
+
+<p>var http = require('request'); exports.get = function(request, response) { var zip = request.query.zip; var city = request.query.city; var address = request.query.address; var url = '<a href="https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?">https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?</a><em>auth=1,<your key>'; http.get({ url: url }, function(err, getresponse, body) { if (err) { request.respond(statusCodes.INTERNAL</your></em>SERVER<em>ERROR, 'Unable to connect.'); } else if (response.statusCode ! 200) { request.respond(statusCodes.BAD</em>REQUEST, 'Bad request'); } else { request.respond(200, body); } }); };</p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../using-azure-mobile-services-as-an-api-proxy/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
+
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2014/05/14/home-automation-with-cortana-using-onion-io/">Home automation with Cortana using Onion.io</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/ http://www.neowin.net/news/cortana-moves-beyond-the-calendar-turns-on-the-lights-and-print-reminders http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/ http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/ http: <a class="read-more" href="../../2014/05/14/home-automation-with-cortana-using-onion-io/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../home-automation-with-cortana-using-onion-io/">Home automation with Cortana using Onion.io</a></h1>
         
-        <time class="post-date" datetime="2014-05-14">14 May 2014</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2014-05-14" class="timeago">2 years ago</time>
+                <time datetime="2014-05-14" class="fulldate">May 14th, 2014</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <p><a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/">http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/</a></p>
+
+<p><a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/">http://www.neowin.net/news/cortana-moves-beyond-the-calendar-turns-on-the-lights-and-print-reminders</a></p>
+
+<p><a href="http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/%22%20%5Ct%20%22_blank">http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/</a></p>
+
+<p><a href="http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/%22%20%5Ct%20%22_blank">http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/</a></p>
+
+<p><a href="http://www.wpcentral.com/cortana-controls-lights-and-printer">http://www.wpcentral.com/cortana-controls-lights-and-printer</a></p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../home-automation-with-cortana-using-onion-io/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
+
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2013/12/10/how-to-add-extended-splash-screen-with-progress-rings-to-a-windows-8-app/">How to add extended splash screen with progress rings to a Windows 8 app</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Recently I have been seeing Windows 8.1 apps (specifically ones targeting ARM) fail content compliance certification due to requirement 3.2, which states “Your app <a class="read-more" href="../../2013/12/10/how-to-add-extended-splash-screen-with-progress-rings-to-a-windows-8-app/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../how-to-add-extended-splash-screen-with-progress-rings-to-a-windows-8-app/">How to add extended splash screen with progress rings to a Windows 8 app</a></h1>
         
-        <time class="post-date" datetime="2013-12-10">10 December 2013</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2013-12-10" class="timeago">3 years ago</time>
+                <time datetime="2013-12-10" class="fulldate">December 10th, 2013</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <p>Recently I have been seeing Windows 8.1 apps (specifically ones targeting ARM) fail content compliance certification due to requirement 3.2, which states “Your app must not stop responding, end unexpectedly, or exhibit errors that significantly and adversely impact the customer experience”. Notes from testers usually say “Unfortunately, when our reviewers tried to launch your app failed to launch every time”.</p>
+
+<p>Although it is certainly not the case all the time, I believe one of the reasons these apps fail because of time restrictions when launching the app. Since ARM based tables can have lower performance than x86 based ones, they fail this requirement more often. I found that adding an extended splash screen with a progress ring solves this issue since it either tells the tester that the app is not frozen or it makes it pass the time to launch test.</p>
+
+<p>It is very easy to add an extended splash screen to your app. I am going to walk you through the steps to add for a C#/XAML-based app.</p>
+
+<p>First, create a new XAML page called ExtendedSplash.xaml to create a background with an image of your choosing and the progress rings.</p>
+
+<p><grid background="Black"> <image x:name="extendedSplashImage" source="Assets/Image.png" height="300" width="620" verticalalignment="Center"></image> <progressring x:name="ProgressRing" foreground="White" isactive="True" maxheight="50" minheight="50" maxwidth="80" minwidth="30" margin="590,560,620,234" width="78" height="74"></progressring> </grid></p>
+
+<p>and in ExtendedSplash.xaml.cs, enter this:</p>
+
+<p>public ExtendedSplash(SplashScreen splash) { InitializeComponent(); this.InitializeComponent(); this.extendedSplashImage.SetValue(Canvas.LeftProperty, splash.ImageLocation.X); this.extendedSplashImage.SetValue(Canvas.TopProperty, splash.ImageLocation.Y); this.extendedSplashImage.Height = splash.ImageLocation.Height; this.extendedSplashImage.Width = splash.ImageLocation.Width; // Position the extended splash screen’s progress ring. this.ProgressRing.SetValue(Canvas.TopProperty, splash.ImageLocation.Y + splash.ImageLocation.Height + 32); this.ProgressRing.SetValue(Canvas.LeftProperty, splash.ImageLocation.X + (splash.ImageLocation.Width / 2) - 15); } internal void onSplashScreenDismissed(Windows.ApplicationModel.Activation.SplashScreen sender, object e) { // The splash screen has been dismissed and the extended splash screen is now in view. }</p>
+
+<p>Finally, in App.xaml.cs, add this on top of OnLaunched function to call the extended splash screen.</p>
+
+<p>if (args.PreviousExecutionState == ApplicationExecutionState.Running) { Window.Current.Activate(); return; } SplashScreen splashScreen = args.SplashScreen; ExtendedSplash eSplash = new ExtendedSplash(splashScreen); // Register an event handler to be executed when the splash screen has been dismissed. splashScreen.Dismissed += new TypedEventHandler<splashscreen object>(eSplash.onSplashScreenDismissed); Window.Current.Content = eSplash; Window.Current.Activate();</splashscreen></p>
+
+<p>Now your app should display an extended splash screen with progress rings when launched until it is ready to display the initial page.</p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../how-to-add-extended-splash-screen-with-progress-rings-to-a-windows-8-app/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
+
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2013/10/30/how-to-add-rating-remainders-and-access-windows-store-publisher-page-and-rate-from-unity/">How to add rating remainders and access Windows Store publisher page and rate from Unity</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>If you would like to add rating remainder to your apps, you can use this open source library: https://github.com/jbienzms/AppPromo   It is also <a class="read-more" href="../../2013/10/30/how-to-add-rating-remainders-and-access-windows-store-publisher-page-and-rate-from-unity/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../how-to-add-rating-remainders-and-access-windows-store-publisher-page-and-rate-from-unity/">How to add rating remainders and access Windows Store publisher page and rate from Unity</a></h1>
         
-        <time class="post-date" datetime="2013-10-30">30 October 2013</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2013-10-30" class="timeago">3 years ago</time>
+                <time datetime="2013-10-30" class="fulldate">October 30th, 2013</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <p>If you would like to add rating remainder to your apps, you can use this open source library: <a href="https://github.com/jbienzms/AppPromo">https://github.com/jbienzms/AppPromo</a> <br>
+ It is also available in Nuget in Visual Studio, search for app promo. <br>
+ Basically, all you have to do is something like: (there is also a sample app in the github repo)</p>
+
+<p><layoutawarepage xmlns:apppromo="using:AppPromo" mc:ignorable="d"></layoutawarepage></p>
+
+<p>and then</p>
+
+<p><ratereminder x:name="RateReminder" tryremindercompleted="RateReminder_TryReminderCompleted" runsbeforereminder="3" daysbeforereminder="2"></ratereminder></p>
+
+<p>TryRemainderCompleted is an optional delegate that you can do other things with.</p>
+
+<p>For Windows Store search to find the portfolio of a publisher, just include this in your Unity code when button is clicked:</p>
+
+<p>Application.OpenURL ("ms-windows-store:Publisher?name=Sertac%20Ozercan");</p>
+
+<p>If there is a space in the publisher name, you have to use %20 like above.</p>
+
+<p>To rate an app:</p>
+
+<p>Application.OpenURL ("ms-windows-store:REVIEW?PFN=" + appPackageID);</p>
+
+<p>(appPackageID is whatever your package id is, something like “7fbddfa4-4712-4c32-96cf-255a3fceff5f”)</p>
+
+<p>This page has information on other store protocols like searching, updates: <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh974767.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/hh974767.aspx</a></p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../how-to-add-rating-remainders-and-access-windows-store-publisher-page-and-rate-from-unity/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
+
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2013/10/23/new-app-medium-reader-for-windows-8-1/">New app: Medium Reader for Windows 8.1</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Medium is a publishing platform from the founders of Twitter, that people can share ideas and stories with public. Medium Reader, exclusively for Windows 8.1, <a class="read-more" href="../../2013/10/23/new-app-medium-reader-for-windows-8-1/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../new-app-medium-reader-for-windows-8-1/">New app: Medium Reader for Windows 8.1</a></h1>
         
-        <time class="post-date" datetime="2013-10-23">23 October 2013</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2013-10-23" class="timeago">3 years ago</time>
+                <time datetime="2013-10-23" class="fulldate">October 23rd, 2013</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <ul>
+<li><a href="http://medium.com">Medium</a> is a publishing platform from the founders of Twitter, that people can share ideas and stories with public.</li>
+<li>Medium Reader, exclusively for Windows 8.1, makes it easy to follow your favorite collections, read and share articles.</li>
+<li><a href="http://apps.microsoft.com/windows/en-us/app/medium-reader/7fbddfa4-4712-4c32-96cf-255a3fceff5f">Download Medium Reader from the Windows Store</a></li>
+</ul>
+
+<p>[nggallery id=17]</p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../new-app-medium-reader-for-windows-8-1/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
+
 <article class="post">
     <header class="post-header">
-        <h2 class="post-title"><a href="../../2013/10/14/fixing-element-not-found-exception-from-hresult-0x80070490-error-in-windows-8-x/">Fixing "Element not found. (Exception from HRESULT: 0x80070490)" error in Windows 8.x</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Recently encountered this issue on a Unity 4.3b4 project targeting Windows 8.1 SDK, however it was running fine targeting 8.0 SDK. I was <a class="read-more" href="../../2013/10/14/fixing-element-not-found-exception-from-hresult-0x80070490-error-in-windows-8-x/">»</a></p>
-    </section>
-    <footer class="post-meta">
-        <img class="author-thumb" src="http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&amp;d=mm&amp;r=x" alt="Sertaç Özercan" nopin="nopin">
-        <a href="../../author/sozercan/">Sertaç Özercan</a>
+
+        <h1 class="post-title"><a href="../../fixing-element-not-found-exception-from-hresult-0x80070490-error-in-windows-8-x/">Fixing "Element not found. (Exception from HRESULT: 0x80070490)" error in Windows 8.x</a></h1>
         
-        <time class="post-date" datetime="2013-10-14">14 October 2013</time>
+        <section class="post-meta">
+            <span class="post-time">
+                <i class="fa fa-calendar"></i>
+                <time datetime="2013-10-14" class="timeago">3 years ago</time>
+                <time datetime="2013-10-14" class="fulldate">October 14th, 2013</time>
+            </span>
+            
+        </section>
+    </header>
+    <section class="post-content">
+        <p>Recently encountered this issue on a Unity 4.3b4 project targeting Windows 8.1 SDK, however it was running fine targeting 8.0 SDK. I was trying to save a screenshot from the app, the app has a callback to the C# function below:</p>
+
+<p>private static async void saveImageAsync(byte[] pngData) {      Exception ex;      try      {                 FileSavePicker picker = new FileSavePicker();                 picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;                 picker.FileTypeChoices.Add("Suggested File Type", new List<string>() {".png"});                 StorageFile file = await picker.PickSaveFileAsync();                   if (file != null)                 {                   ...</string></p>
+
+<p>The project had access to picturesLibrary, webcam and microphone. When it got to the “FileSavePicker picker = new FileSavePicker();”, it was giving an exception of “Element not found. (Exception from HRESULT: 0x80070490)”. <br>
+ I found that it wasn’t running on the UI thread, which is why it is not finding the save file picker. The fix was to use a dispatcher to a UI thread. If you surround the above code with dispatcher below, it will run on the UI thread. <br>
+``</p>
+
+<p>await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =&gt;; { // code that goes to UI thread }</p>
+    </section>
+    <footer class="post-indexfooter">
+        <i class="fa fa-comment-o"></i> <a href="../../fixing-element-not-found-exception-from-hresult-0x80070490-error-in-windows-8-x/index.html#disqus_thread">Comments</a>
     </footer>
 </article>
+
 
 <nav class="pagination" role="navigation">
         <a class="newer-posts" href="../../"><span aria-hidden="true">←</span> Newer Posts</a>
@@ -160,19 +339,35 @@
 </nav>
 
 
-</main>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'sozercan'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+        </div>
+    </main>
 
-
-        <footer class="site-footer clearfix">
-            <section class="copyright"><a href="http://my-ghost-blog.com">Sertaç Özercan</a> © 2016</section>
-            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
-        </footer>
-
-    </div>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     
-    <script type="text/javascript" src="../../assets/js/jquery.fitvids.js?v=7481804497"></script>
-    <script type="text/javascript" src="../../assets/js/index.js?v=7481804497"></script>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/jquery.fitvids.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../../assets/js/index.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../../assets/js/prism-loader.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../../assets/js/prism.js?v=44c55ef586"></script>
+    <script src="../../assets/js/jquery.ghostHunter.min.js?v=44c55ef586"></script>
+    <script>
+        $("#search-field").ghostHunter({
+            rss : "http://my-ghost-blog.com/rss/",
+            results : "#results",
+            onKeyUp : true,
+            zeroResultsInfo : false
+        });
+    </script>
 </body>
+

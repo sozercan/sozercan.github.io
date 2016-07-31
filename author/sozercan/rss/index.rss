@@ -1,0 +1,635 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>Sertaç Özercan - Sertaç Özercan</title><description>Sertaç Özercan - Sertaç Özercan</description><link>http://my-ghost-blog.com/</link><generator>Ghost 0.9</generator><lastBuildDate>Sun, 31 Jul 2016 05:20:49 GMT</lastBuildDate><atom:link href="http://my-ghost-blog.com/author/sozercan/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>High CPU usage for com.apple.AmbientDisplayAgent on macOS Sierra PB1</title><description>&lt;p&gt;Was seeing high CPU usage on com.apple.AmbientDisplayAgent process, and getting “Read hardware overrides for display” errors on console on macOS Sierra Public Beta 1.&lt;/p&gt;
+
+&lt;p&gt;Was able to find a workaround using this:&lt;/p&gt;
+
+&lt;p&gt;– Disable System Integrity Protection (SIP) by booting in recovery mode (hold down cmd+R on boot)&lt;/p&gt;</description><link>http://my-ghost-blog.com/high-cpu-usage-for-com-apple-ambientdisplayagent-on-macos-sierra-pb1/</link><guid isPermaLink="false">902e02f6-fc1d-47a4-bdf6-13b016e18929</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Sat, 09 Jul 2016 19:51:54 GMT</pubDate><content:encoded>&lt;p&gt;Was seeing high CPU usage on com.apple.AmbientDisplayAgent process, and getting “Read hardware overrides for display” errors on console on macOS Sierra Public Beta 1.&lt;/p&gt;
+
+&lt;p&gt;Was able to find a workaround using this:&lt;/p&gt;
+
+&lt;p&gt;– Disable System Integrity Protection (SIP) by booting in recovery mode (hold down cmd+R on boot) and then going to Terminal and typing “csrutil disable” &lt;br&gt;
+ – Reboot &lt;br&gt;
+ – Open Terminal &lt;br&gt;
+ – mv /System/Library/PrivateFrameworks/AmbientDisplay.framework/Versions/A/XPCServices/com.apple.AmbientDisplayAgent.xpc/Contents/MacOS/com.apple.AmbientDisplayAgent /System/Library/PrivateFrameworks/AmbientDisplay.framework/Versions/A/XPCServices/com.apple.AmbientDisplayAgent.xpc/Contents/MacOS/com.apple.AmbientDisplayAgent_ &lt;br&gt;
+ – Reboot and enable SIP (“csrutil enable”)&lt;/p&gt;
+
+&lt;p&gt;This should disable this process for now, but you won’t be able to use your ambient light sensor. Hopefully this will be fixed in PB 2 (don’t forget to rename it back).&lt;/p&gt;</content:encoded></item><item><title>Building Product Hunt for Windows 10</title><description>&lt;p&gt;Following up from the &lt;a href="http://sertacozercan.com/2015/04/product-hunt-for-windows-10/"&gt;previous post&lt;/a&gt;, this post will go through some of the more visual Windows 10 APIs that was used and provide some brief code snippets to developers.&lt;/p&gt;
+
+&lt;h4 id="titlebar"&gt;Titlebar&lt;/h4&gt;
+
+&lt;p&gt;One of the nice visual improvements of apps running on Windows 10 is that they can customize their titlebar&lt;/p&gt;</description><link>http://my-ghost-blog.com/building-product-hunt-for-windows-10/</link><guid isPermaLink="false">e0be0ea3-d0a8-4fbd-9b6e-4903881f9559</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Mon, 27 Apr 2015 16:09:21 GMT</pubDate><content:encoded>&lt;p&gt;Following up from the &lt;a href="http://sertacozercan.com/2015/04/product-hunt-for-windows-10/"&gt;previous post&lt;/a&gt;, this post will go through some of the more visual Windows 10 APIs that was used and provide some brief code snippets to developers.&lt;/p&gt;
+
+&lt;h4 id="titlebar"&gt;Titlebar&lt;/h4&gt;
+
+&lt;p&gt;One of the nice visual improvements of apps running on Windows 10 is that they can customize their titlebar colors. &lt;br&gt;
+ This is a typical app titlebar running on Windows 10: &lt;br&gt;
+&lt;img src="http://i.imgur.com/E6ehv7A.png" alt="" title=""&gt; &lt;br&gt;
+ You can customize the titlebar colors: (even dynamically!) &lt;br&gt;
+&lt;img src="http://i.imgur.com/bxMqm0T.png" alt="" title=""&gt; &lt;br&gt;
+&lt;img src="http://i.imgur.com/juzme89.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;var titlebar = ApplicationView.GetForCurrentView().TitleBar; titlebar.ButtonBackgroundColor = Windows.UI.Color.FromArgb(255, 31, 31, 31); titlebar.ButtonForegroundColor = Windows.UI.Colors.White;&lt;/p&gt;
+
+&lt;p&gt;You can even do it on Windows 8.x apps running on Windows 10. See how to here: &lt;a href="http://blog.thomasnigro.fr/2015/02/11/exploring-w10-apis-windows-and-titlebar/"&gt;http://blog.thomasnigro.fr/2015/02/11/exploring-w10-apis-windows-and-titlebar/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Taking this one step further, you can extend the view into title bar, making it a “chromeless” app. This is what Project Spartan uses for displaying tabs. You can do it by using:&lt;/p&gt;
+
+&lt;p&gt;var titlebar = ApplicationView.GetForCurrentView().TitleBar; titlebar.ExtendViewIntoTitleBar = true;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://msdn.microsoft.com/en-us/windows.ui.viewmanagement.applicationviewtitlebar.extendviewintotitlebar"&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that this is changing in the 10069 SDK (that was released in //build) slightly&lt;/p&gt;
+
+&lt;p&gt;CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;&lt;/p&gt;
+
+&lt;p&gt;This is what it looks like without extendViewIntoTitleBar: &lt;br&gt;
+&lt;img src="http://i.imgur.com/RizGruu.png" alt="" title=""&gt; &lt;br&gt;
+ with: &lt;br&gt;
+&lt;img src="http://i.imgur.com/t3qeThZ.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;Since there is no title bar, this poses a question on how would you move the window? &lt;br&gt;
+ There is a small fixed-width area immediately to the right of window controls (see &lt;a href="https://msdn.microsoft.com/en-us/windows.ui.viewmanagement.applicationviewtitlebar.systemoverlayrightinset"&gt;SystemOverlayRightInset&lt;/a&gt;), but it’s quite small, and users will not expect this behavior.&lt;/p&gt;
+
+&lt;p&gt;What if you wanted to have the same functionality of the regular titlebar where you can drag the window anywhere on the top? You can set an element to act like the default titlebar with:&lt;/p&gt;
+
+&lt;p&gt;Window.Current.SetTitleBar(UIElement);&lt;/p&gt;
+
+&lt;p&gt;(This API was added in build 10049, and with 10061 you can double click to maximize the titlebar – just like Project Spartan)&lt;/p&gt;
+
+&lt;p&gt;Keep in mind that any input to that UIElement will be consumed, so you can’t add any controls on that element. &lt;br&gt;
+ I found it best to use a TextBox since it can scale horizontally or vertically easily.&lt;/p&gt;
+
+&lt;p&gt;&lt;textbox x:name="titleBar" grid.column="1" horizontalalignment="Stretch" verticalalignment="Stretch" borderthickness="0" isreadonly="True" ishittestvisible="False"&gt;&lt;/textbox&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that since this needs to work for Phone as well (of course phone doesn’t allow windowed apps) so I set the HitTestVisible to false to disable selecting the textbox there.&lt;/p&gt;
+
+&lt;h4 id="splitview"&gt;SplitView&lt;/h4&gt;
+
+&lt;p&gt;Ah, the infamous “hamburger” menu! But it doesn’t have to be hamburger menu, you can put any sort of control inside the SplitView. For example, I thought it would be best to use a ListView with list of products inside.&lt;/p&gt;
+
+&lt;p&gt;Here is what it looks like when app has enough width (using Inline SplitView): &lt;br&gt;
+&lt;a href="http://i.imgur.com/lo7AP4E.png"&gt;&lt;img src="http://i.imgur.com/lo7AP4E.png" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Since some of the sites are not going to be responsive, you might want to make the minimize the splitview and webview use all the space. &lt;br&gt;
+ This also works great when making the app responsive for smaller window size on the desktop, or phone form factor. (see next sections) &lt;br&gt;
+ Here is when the SplitView is in Overlay mode (not enough width): &lt;br&gt;
+&lt;a href="http://i.imgur.com/PvqxZo8.png"&gt;&lt;img src="http://i.imgur.com/PvqxZo8.png" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id="adaptivetriggers"&gt;AdaptiveTriggers&lt;/h4&gt;
+
+&lt;p&gt;AdaptiveTriggers are a great way to make your app responsive to different triggers. By default, you can set minimum window width or height of the app have the different UI elements to adapt to changes. &lt;br&gt;
+ For example, we talked about adapting the SplitView control behavior when the window size is smaller than certain width. &lt;br&gt;
+ Here is what that looks like in XAML:&lt;/p&gt;
+
+&lt;p&gt;&lt;visualstategroup&gt; &lt;visualstate&gt; &lt;visualstate.statetriggers&gt; &lt;adaptivetrigger minwindowwidth="1"&gt; &lt;/adaptivetrigger&gt;&lt;/visualstate.statetriggers&gt; &lt;visualstate.setters&gt; &lt;setter target="MenuSplitView.DisplayMode" value="Overlay"&gt; &lt;setter target="MenuSplitView.IsPaneOpen" value="False"&gt; &lt;/setter&gt;&lt;/setter&gt;&lt;/visualstate.setters&gt; &lt;/visualstate&gt; &lt;visualstate&gt; &lt;visualstate.statetriggers&gt; &lt;adaptivetrigger minwindowwidth="768"&gt; &lt;/adaptivetrigger&gt;&lt;/visualstate.statetriggers&gt; &lt;visualstate.setters&gt; &lt;setter target="MenuSplitView.DisplayMode" value="Inline"&gt; &lt;setter target="MenuSplitView.IsPaneOpen" value="True"&gt; &lt;/setter&gt;&lt;/setter&gt;&lt;/visualstate.setters&gt; &lt;/visualstate&gt; &lt;/visualstategroup&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also add custom state triggers, &lt;a href="https://github.com/dotMorten/WindowsStateTriggers"&gt;WindowsStateTriggers&lt;/a&gt; has great examples for state triggers for network, DeviceFamily, orientation and more.&lt;/p&gt;
+
+&lt;h4 id="extensions"&gt;Extensions&lt;/h4&gt;
+
+&lt;p&gt;Another way you can adapt your app is by using Extensions. For example, if your app is running on a phone with physical hardware button you can choose to do certain things, or if you are running on a desktop that can connect to a Scanner.&lt;/p&gt;
+
+&lt;p&gt;if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons")) { // do phone things }&lt;/p&gt;
+
+&lt;p&gt;To add an extension, in Visual Studio 2015, add a reference and under Windows Universal, select mobile and/or desktop extension.&lt;/p&gt;
+
+&lt;h4 id="relativepanel"&gt;RelativePanel&lt;/h4&gt;
+
+&lt;p&gt;RelativePanel is yet another tool for making responsive apps. &lt;br&gt;
+ This guide is really useful in explaining RelativePanel: &lt;a href="http://visuallylocated.com/post/2015/04/09/In-depth-with-the-Windows-RelativePanel.aspx"&gt;http://visuallylocated.com/post/2015/04/09/In-depth-with-the-Windows-RelativePanel.aspx&lt;/a&gt;defe&lt;/p&gt;
+
+&lt;h4 id="datepickerflyout"&gt;DatePickerFlyout&lt;/h4&gt;
+
+&lt;p&gt;DatePickerFlyout is not a new control for Windows Phone developers. In Windows Phone 8.1, you can find the DatePickerFlyout but it is not on Windows 8.x. &lt;br&gt;
+ In Windows 10, these APIs are converged, and DatePickerFlyout control works for both platforms.&lt;/p&gt;
+
+&lt;p&gt;&lt;button x:name="CalendarButton" visibility="Visible" content="" foreground="White" fontfamily="Segoe MDL2 Assets"&gt; &lt;button.flyout&gt; &lt;datepickerflyout x:name="PastDatePicker" datepicked="PastDatePicker_DatePicked"&gt; &lt;/datepickerflyout&gt;&lt;/button.flyout&gt; &lt;/button&gt;&lt;/p&gt;
+
+&lt;h4 id="menuflyout"&gt;MenuFlyout&lt;/h4&gt;
+
+&lt;p&gt;I was thinking about using CommandBar for share or open in browser controls, but I thought MenuFlyout might work better (inspired by Project Spartan). &lt;br&gt;
+ Although this is not a new control for W8.1/WP8.1 universal apps, you can now add subitems and subsubitems (and works across all platforms!).&lt;/p&gt;
+
+&lt;p&gt;&lt;menuflyout&gt; &lt;menuflyoutitem text="Item 1"&gt; &lt;menuflyoutitem text="Item 2"&gt; &lt;menuflyoutseparator&gt; &lt;menuflyoutsubitem text="Subitem 1"&gt; &lt;menuflyoutitem text="Item 3"&gt; &lt;menuflyoutsubitem text="Subitem 2"&gt; &lt;menuflyoutitem text="Item 4"&gt; &lt;/menuflyoutitem&gt;&lt;/menuflyoutsubitem&gt; &lt;/menuflyoutitem&gt;&lt;/menuflyoutsubitem&gt; &lt;/menuflyoutseparator&gt;&lt;/menuflyoutitem&gt;&lt;/menuflyoutitem&gt;&lt;/menuflyout&gt;&lt;/p&gt;
+
+&lt;h4 id="fullscreenmode"&gt;FullScreenMode&lt;/h4&gt;
+
+&lt;p&gt;If you are running a Windows 8.x app on Windows 10, it will automatically add hamburger menu (for charms access) and fullscreen mode button controls to the titlebar. Like so: &lt;br&gt;
+&lt;img src="http://i.imgur.com/OTgrxxz.png" alt="" title=""&gt; &lt;br&gt;
+ If you want to add the fullscreen mode functionality to a Windows 10 app, you have to add it somewhere on the canvas. And this functionality the button:&lt;/p&gt;
+
+&lt;p&gt;private void FullScreenButton_Click(object sender, RoutedEventArgs e) { bool isFullScreen = ApplicationView.GetForCurrentView().IsFullScreenMode; if (!isFullScreen) { ApplicationView.GetForCurrentView().TryEnterFullScreenMode(); // ... } else { ApplicationView.GetForCurrentView().ExitFullScreenMode(); // ... } }&lt;/p&gt;
+
+&lt;h4 id="settingspane"&gt;SettingsPane&lt;/h4&gt;
+
+&lt;p&gt;With Windows 10 apps, there is a no &lt;em&gt;system&lt;/em&gt; settings charm anymore, and with no charms, you need to add a settings button on the canvas which should call a SettingsFlyout.&lt;/p&gt;
+
+&lt;h4 id="webview"&gt;WebView&lt;/h4&gt;
+
+&lt;p&gt;Not only the new WebView is significantly faster with Project Spartan/Edge engine, there is a lot of added functionality for interacting with web apps on Windows 10, this will probably be a future blog post. Stay tuned! 🙂&lt;/p&gt;
+
+&lt;p&gt;Please send any feedback/questions/suggestions in the comments section below.&lt;/p&gt;</content:encoded></item><item><title>Product Hunt for Windows 10</title><description>&lt;p&gt;With the Windows 10 March Preview SDK release, I thought it would be good learning experience to build a simple hobby app that showcases some of the Windows 10 features. &lt;br&gt;
+ Windows 10 development platform introduces the concept of a Universal Windows Platform (UWP), where developers can code against the Windows&lt;/p&gt;</description><link>http://my-ghost-blog.com/product-hunt-for-windows-10/</link><guid isPermaLink="false">b255a413-eaf4-4b5e-bb07-7b18b78b0bc6</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Wed, 22 Apr 2015 13:00:45 GMT</pubDate><content:encoded>&lt;p&gt;With the Windows 10 March Preview SDK release, I thought it would be good learning experience to build a simple hobby app that showcases some of the Windows 10 features. &lt;br&gt;
+ Windows 10 development platform introduces the concept of a Universal Windows Platform (UWP), where developers can code against the Windows platform instead of individual device types. Unlike Universal apps that has each of their own projects for desktop/tablet, phone and a shared project, with Windows 10 you can build a single project that developers can deploy to desktop, tablet, phone, and other Windows platforms (such as HoloLens and Xbox).&lt;/p&gt;
+
+&lt;p&gt;If you are not familiar with Product Hunt, &lt;a href="http://producthunt.com"&gt;Product Hunt&lt;/a&gt; is a platform and community where you can find out about latest products, and have discussions with makers of the featured products and other community members, with a similar upvoting system like Reddit or Hacker News. You can find out more about it at: &lt;a href="http://www.producthunt.com/about"&gt;http://www.producthunt.com/about&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Since Windows 10 is still in development stage, right now there is no Store you can submit to. (Of course you can still submit to Windows Store for Windows 8.x and Windows Phone 8.x apps) &lt;br&gt;
+ So I thought I can make this app available for anyone who can sideload the app. &lt;br&gt;
+ Here is what it looks like on Windows 10 desktop/tablet:  &lt;/p&gt;
+
+&lt;video controls="controls" height="236" width="329"&gt;&lt;source src="http://i.imgur.com/p1tBuGm.mp4"&gt;&lt;/video&gt;  
+
+&lt;p&gt;And for Windows 10 phone: &lt;br&gt;
+&lt;a href="http://i.imgur.com/JocMP7M.png"&gt;&lt;img src="http://i.imgur.com/JocMP7M.png" alt="" title=""&gt;&lt;/a&gt; &lt;a href="http://i.imgur.com/sPLFdmF.png"&gt;&lt;img src="http://i.imgur.com/sPLFdmF.png" alt="" title=""&gt;&lt;/a&gt; &lt;a href="http://i.imgur.com/SNbKZTH.png"&gt;&lt;img src="http://i.imgur.com/SNbKZTH.png" alt="" title=""&gt;&lt;/a&gt; &lt;a href="http://i.imgur.com/vLeK7Hp.png"&gt;&lt;img src="http://i.imgur.com/vLeK7Hp.png" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Adapts to window size changes:  &lt;/p&gt;
+
+&lt;video controls="controls" height="236" width="329"&gt;&lt;source src="http://i.imgur.com/bDXp87q.mp4"&gt;&lt;/video&gt;
+
+&lt;p&gt;Here is how it to go to a certain date and displays comments:  &lt;/p&gt;
+
+&lt;video controls="controls" height="236" width="329"&gt;&lt;source src="http://i.imgur.com/pc2hR2p.mp4"&gt;&lt;/video&gt;
+
+&lt;p&gt;&lt;em&gt;This is meant as a work-in-progress community app for enthusiasts and developers, app will be available in Windows Store when it starts accepting Windows 10 apps. &lt;br&gt;
+&lt;strong&gt;&lt;/strong&gt;&lt;/em&gt;You can download and sideload it at:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://1drv.ms/1IoE88f"&gt;Desktop/Tablet&lt;/a&gt; (requires build 10074 that was released at //build)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://1drv.ms/1JMwm6s"&gt;Phone&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Right now, app has the following features (similar to any 3rd party PH app):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Browsing posts&lt;/li&gt;
+&lt;li&gt;Reading comments&lt;/li&gt;
+&lt;li&gt;Ability to go back to a certain date&lt;/li&gt;
+&lt;li&gt;Pull to refresh&lt;/li&gt;
+&lt;li&gt;Sharing content&lt;/li&gt;
+&lt;li&gt;Full Screen&lt;/li&gt;
+&lt;li&gt;Dark mode&lt;/li&gt;
+&lt;li&gt;Live tiles&lt;/li&gt;
+&lt;li&gt;more coming soon 🙂&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Known issues/upcoming features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PH doesn’t provide write permissions to apps by default so you can only view posts and comments&lt;/li&gt;
+&lt;li&gt;App doesn’t run on user context, so you can’t login or see notifications&lt;/li&gt;
+&lt;li&gt;Product list doesn’t list the dates yet&lt;/li&gt;
+&lt;li&gt;HTML in the comments are not parsed yet&lt;/li&gt;
+&lt;li&gt;You can’t get information about specific users yet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are interested in learning some of the Windows 10 features that was used in the app, I’ll briefly go over them and then direct you to resources where you can find out more. I think this can be beneficial to developers to learn about insight when developing the app. &lt;br&gt;
+ Part 2: &lt;a href="http://sertacozercan.com/2015/04/building-product-hunt-for-windows-10/"&gt;Building Product Hunt for Windows 10&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>How to manually sign Windows 10 UAP apps for sideloading</title><description>&lt;p&gt;&lt;em&gt;Note: This article was written for Preview tooling that was released in March 2015.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;With the current &lt;a href="http://dev.windows.com/en-US/windows-10-developer-preview-tools"&gt;Visual Studio 2015 CTP6 with Windows 10 Tools Preview&lt;/a&gt; setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-manually-sign-windows-10-uap-apps-for-sideloading/</link><guid isPermaLink="false">81e4559f-b592-4ef2-89e1-0f7effe69a65</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Mon, 23 Mar 2015 21:31:08 GMT</pubDate><content:encoded>&lt;p&gt;&lt;em&gt;Note: This article was written for Preview tooling that was released in March 2015.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;With the current &lt;a href="http://dev.windows.com/en-US/windows-10-developer-preview-tools"&gt;Visual Studio 2015 CTP6 with Windows 10 Tools Preview&lt;/a&gt; setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you cannot submit to the Store yet, you might want to share your apps with others, but after you create a package and try to sideload, you’ll get the “The package or bundle is not digitally signed or it’s signature is corrupted” error.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-1.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-1.png" alt="W10Sideload-1" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To fix this, you need to manually sign your appx packages. Here are the steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an appx package as usual from Project &gt; Store &gt; Create App Packages  &lt;/li&gt;
+&lt;li&gt;Copy the app temporary key from inside the VS project (i.e. App1_TemporaryKey.pfx) to the newly created test folder  &lt;/li&gt;
+&lt;li&gt;Open a command prompt and navigate to the test folder and type this (change package names and locations appropriately)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;C:\Users\Sertac\Documents\Visual Studio 2015\Projects\PH10\App1\AppPackages\Product Hunt&lt;em&gt;0.1.0.&lt;/em&gt;AnyCPU&lt;em&gt;Test&gt;&lt;/em&gt;&lt;/strong&gt;“C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe” sign /fd sha256 /f App1TemporaryKey.pfx “Product Hunt&lt;em&gt;0.1.0.0&lt;/em&gt;AnyCPU.appx”&lt;/p&gt;
+
+&lt;p&gt;You’ll get this output:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-2.png" alt="W10Sideload-2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Right click on the pfx file, and select Open. Navigate to the certificate, right click and select All Tasks &gt; Export (there is probably a command line replacement for this but you only need to do this once. You can reuse the same certificate every time (although it needs to be copied to the test folder), you just need to do step 3 on every package.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-3.jpeg"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-3.jpeg" alt="W10Sideload-3" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Follow the wizard to create a .CER file, and copy it to the folder where appx file is (test folder).  &lt;/li&gt;
+&lt;li&gt;You can now sideload as usual by running Add-AppDevPackage.ps1 with Powershell.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let me know whether this worked for you, or if there is a better way in the comments section below.&lt;/p&gt;</content:encoded></item><item><title>How to install latest Intel graphics drivers on Windows 10 Technical Preview</title><description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: Intel released official drivers for Windows 10, you can download them &lt;a href="https://downloadcenter.intel.com/download/25150/Intel-Iris-Iris-Pro-and-HD-Graphics-Production-Driver-for-Windows-10-64-bit"&gt;here&lt;/a&gt;. After downloading, all you need to do is extract the zip file, go to Device Manager, and select Intel HD graphics and open it’s properties. Select Driver tab, and click on Update Driver &gt; Let me pick&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-install-latest-intel-graphics-drivers-on-windows-10-technical-preview/</link><guid isPermaLink="false">452fadac-6078-484c-b06e-85a7b5bb2c91</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Mon, 23 Feb 2015 18:56:04 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: Intel released official drivers for Windows 10, you can download them &lt;a href="https://downloadcenter.intel.com/download/25150/Intel-Iris-Iris-Pro-and-HD-Graphics-Production-Driver-for-Windows-10-64-bit"&gt;here&lt;/a&gt;. After downloading, all you need to do is extract the zip file, go to Device Manager, and select Intel HD graphics and open it’s properties. Select Driver tab, and click on Update Driver &gt; Let me pick from a list of device drivers on my computer &gt; Have Disk and select the inf file.&lt;/p&gt;
+
+&lt;p&gt;—&lt;/p&gt;
+
+&lt;p&gt;If you would like to install latest Intel drivers out of box to Windows 10 TP, you are out of luck since Intel is blocking the installation of them. With a little tinkering, you can install these drivers to enable more features and control for devices such as Surface Pro 3.&lt;/p&gt;
+
+&lt;p&gt;First, you need to download the latest drivers from Intel’s website at &lt;a href="http://downloadcenter.intel.com/"&gt;http://downloadcenter.intel.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are using a Surface Pro 3 like me, select Graphics Drivers &gt; Laptop Graphics Drivers &gt; 4th gen Intel with HD 4400 (otherwise select whatever that suits your configuration)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/Dl5bK5w.jpg"&gt;&lt;img src="http://i.imgur.com/Dl5bK5w.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the next page, select the architecture and then make sure to download the zip package.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/785npcJ.jpg" alt="" title=""&gt;    &lt;a href="http://i.imgur.com/XqjLrbf.jpg"&gt;&lt;img src="http://i.imgur.com/XqjLrbf.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Download and extract the zip file, and navigate to Graphics folder, and find the inf file (in this case, it’s igdlh64.inf but it might be different in your case)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/Uzecfti.jpg"&gt;&lt;img src="http://i.imgur.com/Uzecfti.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Open the file and scroll down to section that says “Windows 8.1 Install” and then change “NTamd64.6.3” to “NTamd64.6.&lt;strong&gt;4&lt;/strong&gt;“. This will enable drivers to be installed to Windows 10 “Threshold”.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/kDwsDPS.jpg"&gt;&lt;img src="http://i.imgur.com/kDwsDPS.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Delete the igdlh.cat file in the same directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/RPWXvcq.jpg"&gt;&lt;img src="http://i.imgur.com/RPWXvcq.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that you altered this file, this broke the signature of the drivers, so it can no longer be installed as is, since drivers need to be digitally signed to be installed.&lt;/p&gt;
+
+&lt;p&gt;To bypass this check, you need to boot with the integrity check disabled. Go to Settings &gt; Update &amp;amp; Recovery &gt; Advanced Startup and click restart now. Follow the instructions there to change startup behavior and disable integrity check (F7).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/mAddyJK.jpg"&gt;&lt;img src="http://i.imgur.com/mAddyJK.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This will restart the computer with integrity check disabled once, so you don’t need to change this back. Once it’s back up, go to Device Manager, and select Intel HD graphics and open it’s properties. Select Driver tab, and click on Update Driver &gt; Let me pick from a list of device drivers on my computer &gt; Have Disk and select the inf file you modified before.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/Ik3xTUA.jpg" alt="" title=""&gt;  &lt;a href="http://i.imgur.com/AuN6Sy3.jpg"&gt;&lt;img src="http://i.imgur.com/AuN6Sy3.jpg" alt="" title=""&gt;&lt;/a&gt;  &lt;a href="http://i.imgur.com/9c12ep8.jpg"&gt;&lt;img src="http://i.imgur.com/9c12ep8.jpg" alt="" title=""&gt;&lt;/a&gt;  &lt;a href="http://i.imgur.com/4xbsz7n.jpg"&gt;&lt;img src="http://i.imgur.com/4xbsz7n.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This will start installing the driver, make sure to select install this driver anyway when prompted.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/cdPeiCq.jpg"&gt;&lt;img src="http://i.imgur.com/cdPeiCq.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that we installed the driver, everything should be done, right? Unfortunately not. Windows Update will automatically find that there is a driver available (even though you have the latest one), and will try to install that one, overwriting the one you just installed. In previous versions of Windows, you could hide the updates so it won’t install those, however, this functionality isn’t there as of Windows 10 TP (build 9926).&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;To enable this functionality, you need to edit the registry. Change HKEY&lt;em&gt;LOCAL&lt;/em&gt;MACHINE/SOFTWARE/Microsoft/WindowsUpdate/UX/IsConvergedUpdateStackEnabled to 0, and restart. This will enable the old style Control Panel &gt; Windows Update menu where you can hide updates. Make sure to hide the Intel drivers from there.&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/9PZgGI5.png"&gt;&lt;img src="http://i.imgur.com/9PZgGI5.png" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: In latest builds, ability to hide drivers through Windows Update is not available anymore. You can block installation through System Properties &gt; Hardware &gt; Device Installation Settings.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/i8VsQgV.png"&gt;&lt;img src="http://i.imgur.com/i8VsQgV.png" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Or you can try this script: &lt;a href="https://answers.microsoft.com/en-us/insider/forum/insider_wintp-insider_update/how-to-block-automatic-reinstall-of-a-driver-from/bff07224-4ce2-4b42-ab29-68c3a305d730"&gt;https://answers.microsoft.com/en-us/insider/forum/insider&lt;em&gt;wintp-insider&lt;/em&gt;update/how-to-block-automatic-reinstall-of-a-driver-from/bff07224-4ce2-4b42-ab29-68c3a305d730&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This allows you to access Intel Graphics Control Panel, where you can tweak various settings.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://i.imgur.com/c20QVmX.jpg"&gt;&lt;img src="http://i.imgur.com/c20QVmX.jpg" alt="" title=""&gt;&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>How to opt out of low memory devices on Windows Phone 8.1 and Windows 10</title><description>&lt;p&gt;&lt;strong&gt;UPDATE for UWP apps&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;StoreManifest schema got updated in Windows 10. &lt;br&gt;
+&lt;a href="https://msdn.microsoft.com/en-us/library/windows/apps/mt617335.aspx"&gt;https://msdn.microsoft.com/en-us/library/windows/apps/mt617335.aspx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;New method for opting out of certain devices is like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;?xml version="1.0" encoding="utf-8"?&gt; &lt;storemanifest xmlns="http://schemas.microsoft.com/appx/2015/StoreManifest"&gt; &lt;dependencies&gt; &lt;memorydependency minforeground="750MB"&gt; &lt;/memorydependency&gt;&lt;/dependencies&gt; &lt;/storemanifest&gt;&lt;/p&gt;
+
+&lt;p&gt;where MemoryDependency is &lt;br&gt;
+ 300MB = device must have at least 1 GB of&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-opt-out-of-low-memory-devices-on-windows-phone-8-1/</link><guid isPermaLink="false">c5b63586-3b06-420b-af34-59baa84c77c0</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Fri, 19 Dec 2014 12:02:40 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;UPDATE for UWP apps&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;StoreManifest schema got updated in Windows 10. &lt;br&gt;
+&lt;a href="https://msdn.microsoft.com/en-us/library/windows/apps/mt617335.aspx"&gt;https://msdn.microsoft.com/en-us/library/windows/apps/mt617335.aspx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;New method for opting out of certain devices is like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;?xml version="1.0" encoding="utf-8"?&gt; &lt;storemanifest xmlns="http://schemas.microsoft.com/appx/2015/StoreManifest"&gt; &lt;dependencies&gt; &lt;memorydependency minforeground="750MB"&gt; &lt;/memorydependency&gt;&lt;/dependencies&gt; &lt;/storemanifest&gt;&lt;/p&gt;
+
+&lt;p&gt;where MemoryDependency is &lt;br&gt;
+ 300MB = device must have at least 1 GB of installed memory &lt;br&gt;
+ 750MB = device must have at least 2 GB of installed memory &lt;br&gt;
+ 1000MB = device must have at least 3 GB of installed memory &lt;br&gt;
+ 2000MB = device must have at least 4 GB of installed memory &lt;br&gt;
+&lt;a href="https://msdn.microsoft.com/en-us/library/windows/apps/mt617330.aspx"&gt;https://msdn.microsoft.com/en-us/library/windows/apps/mt617330.aspx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;—&lt;/p&gt;
+
+&lt;p&gt;If you test your app and determine that it is not suitable to run on low memory (512MB) Windows Phone devices or want to have some additional time optimizing for these devices, you can choose to opt out of them.&lt;/p&gt;
+
+&lt;p&gt;This means that users users can not find your app in the Windows Phone Store unless they are given a direct link, and even so they cannot download the app. This helps users avoid poor user experience and developers to avoid poor reviews.&lt;/p&gt;
+
+&lt;p&gt;For Windows Phone 8, all you need to do is add the following to WMAppManifest.xml file:&lt;/p&gt;
+
+&lt;p&gt;&lt;requirements&gt; &lt;requirement name="ID_REQ_MEMORY_300"&gt; &lt;/requirement&gt;&lt;/requirements&gt;&lt;/p&gt;
+
+&lt;p&gt;As detailed here: &lt;a href="https://msdn.microsoft.com/en-us/library/windows/apps/hh855081(v=vs.105).aspx"&gt;https://msdn.microsoft.com/en-us/library/windows/apps/hh855081(v=vs.105).aspx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For Windows Phone 8.1, it gets a little trickier since there is no WMAppManifest.xml file anymore, and there isn’t any documentation that shows how to do this. There is a &lt;a href="http://channel9.msdn.com/Events/Build/2014/3-542"&gt;//build session&lt;/a&gt; that says you need to add&lt;/p&gt;
+
+&lt;p&gt;&lt;prerequisites&gt; &lt;m3:mindevicememory&gt;1GB&lt;/m3:mindevicememory&gt; &lt;/prerequisites&gt;&lt;/p&gt;
+
+&lt;p&gt;to Appxmanifest.xml, however, this does &lt;strong&gt;NOT&lt;/strong&gt; work.&lt;/p&gt;
+
+&lt;p&gt;To properly opt out of low memory devices in WP8.1, you need to create a file called &lt;a href="https://msdn.microsoft.com/en-us/library/windows/apps/jj730526.aspx"&gt;storemanifest.xml&lt;/a&gt; inside the app in Visual Studio, and add this code there:&lt;/p&gt;
+
+&lt;p&gt;&lt;storemanifest xmlns="http://schemas.microsoft.com/appx/2010/StoreManifest"&gt; &lt;productfeatures&gt; &lt;hardwarerequirements&gt; &lt;requirement name="ID_REQ_MEMORY_300"&gt; &lt;/requirement&gt;&lt;/hardwarerequirements&gt; &lt;/productfeatures&gt; &lt;/storemanifest&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/LowMem-Sample.zip"&gt;Here&lt;/a&gt; is a sample app that contains the StoreManifest.xml file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This file is only interpreted by the Store, so you won’t see any immediate changes. To confirm this requirement was added, when you are submitting the package to the Store, you will see that the ID&lt;em&gt;REQ&lt;/em&gt;MEMORY_300 is added in capabilities section.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/LowMem-StoreSubmission.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/LowMem-StoreSubmission-150x80.png" alt="LowMem-StoreSubmission" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Since this capability needed only when your app is in the Store, you can test this by adding a beta app. When you go to the store listing, you’ll see the following message stating that you need to have a device with 1GB+ memory to download.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/LowMem-Store.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/LowMem-Store-90x150.png" alt="LowMem-Store" title=""&gt;&lt;/a&gt;   &lt;a href="http://sertacozercan.com/wp-content/uploads/LowMem-Store2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/LowMem-Store2-90x150.png" alt="LowMem-Store2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to remove this restriction after publishing your app, you can remove the storemanifest.xml file and create and submit a new package to the Store. This will make it available for all compatible devices.&lt;/p&gt;</content:encoded></item><item><title>Using Azure Mobile Services as an API proxy</title><description>&lt;p&gt;API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more.&lt;/p&gt;
+
+&lt;p&gt;In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services.&lt;/p&gt;
+
+&lt;h4 id="twitter"&gt;Twitter&lt;/h4&gt;
+
+&lt;p&gt;Since&lt;/p&gt;</description><link>http://my-ghost-blog.com/using-azure-mobile-services-as-an-api-proxy/</link><guid isPermaLink="false">8402668e-1620-47d6-8e7d-e12c03663575</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Sat, 28 Jun 2014 10:50:35 GMT</pubDate><content:encoded>&lt;p&gt;API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more.&lt;/p&gt;
+
+&lt;p&gt;In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services.&lt;/p&gt;
+
+&lt;h4 id="twitter"&gt;Twitter&lt;/h4&gt;
+
+&lt;p&gt;Since Twitter switched to v1.1 API (and retired access to the v1 API), it might be a little tricky to access to Twitter API since it now uses oauth authentication to get any data. Azure Mobile Services makes it very easy to access Twitter (and Facebook, Google and Microsoft Live Connect).&lt;/p&gt;
+
+&lt;p&gt;For this example, we are going to be retrieve Twitter v1.1 API data by authenticating Twitter on Azure Mobile Services and setting up an API proxy for any search queries.&lt;/p&gt;
+
+&lt;p&gt;First thing is to create a Twitter app at &lt;a href="https://apps.twitter.com/"&gt;https://apps.twitter.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-1.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-1-150x107.png" alt="twitterAPI-1" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the app is registered, it will provide 4 types of keys: API key, API secret, access token and access token secret, which we will use in the Azure mobile service.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-2-150x107.png" alt="twitterAPI-2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, in Azure portal at &lt;a href="https://manage.windowsazure.com"&gt;https://manage.windowsazure.com&lt;/a&gt;, create a new mobile service&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-3.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-3-150x107.png" alt="twitterAPI-3" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And then create a new API. For GET request, you might want to change it as “Everyone”, so anyone without a key can access it.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-4.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-4-150x107.png" alt="twitterAPI-4" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the API section, use this code and replace API keys with your Twitter app. This provides a response to a GET method that includes a single query, and uses Twitter API to authenticate to twitter and search for the given query and respond back with the results. GET request should be to&lt;/p&gt;
+
+&lt;p&gt;https://&lt;servicename&gt;.azure-mobile.net/api/&lt;apiname&gt;?q=&lt;searchquery&gt;&lt;/searchquery&gt;&lt;/apiname&gt;&lt;/servicename&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-5.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-5-150x107.png" alt="twitterAPI-5" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;var http = require('request'); exports.get = function (request, response) { var twitterUrl = "&lt;a href="https://api.twitter.com/1.1/search/tweets.json?q=%23"&gt;https://api.twitter.com/1.1/search/tweets.json?q=%23&lt;/a&gt;" + request.query.q; // Create a new request with OAuth credentials. http.get({ url: twitterUrl, oauth: { consumer&lt;em&gt;key: "&lt;api key=""&gt;", consumer&lt;/api&gt;&lt;/em&gt;secret: "&lt;api secret=""&gt;", token: "&lt;access token=""&gt;", token_secret: "&lt;access secret=""&gt;" }}, function (error, resp, body) { if (!error &amp;amp;&amp;amp; resp.statusCode &lt;mark&gt; 200) { response.send(200, body); } else { console.error('Could not contact Twitter'); } }); }&lt;/mark&gt;&lt;/access&gt;&lt;/access&gt;&lt;/api&gt;&lt;/p&gt;
+
+&lt;h4 id="ordrin"&gt;Ordrin&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href="http://ordr.in/"&gt;Ordrin &lt;/a&gt;is an API provider that enables food ordering for any applications. Unfortunately, they don’t support Cross Origin Resource Sharing (CORS) yet, so xhr requests from the web is not accepted by their server, since the request isn’t in the list of Access-Control-Allow-Origin that Ordrin accepts.&lt;/p&gt;
+
+&lt;p&gt;To get around this limitation, we can set up an API proxy through Azure Mobile Services to route all request to the API there.&lt;/p&gt;
+
+&lt;p&gt;To get started, go to &lt;a href="https://hackfood.ordr.in/"&gt;https://hackfood.ordr.in/&lt;/a&gt; and register and create a new app.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/Ordrin-1.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/Ordrin-1-150x92.png" alt="Ordrin-1" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/Ordrin-2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/Ordrin-2-150x92.png" alt="Ordrin-2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a new API just like in the previous example and replace the secret key.&lt;/p&gt;
+
+&lt;p&gt;In this API call, we are going to be requesting list of restaurants in the area that delivers ASAP, and that requires a zip, city, and address. GET request should be sent to: (this time we have 3 different queries)&lt;/p&gt;
+
+&lt;p&gt;https://&lt;servicename&gt;.azure-mobile.net/api/&lt;apiname&gt;?zip=&lt;searchquery&gt;?city=&lt;searchquery&gt;?address=&lt;searchquery&gt;&lt;/searchquery&gt;&lt;/searchquery&gt;&lt;/searchquery&gt;&lt;/apiname&gt;&lt;/servicename&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/Ordrin-3.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/Ordrin-3-150x107.png" alt="Ordrin-3" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;var http = require('request'); exports.get = function(request, response) { var zip = request.query.zip; var city = request.query.city; var address = request.query.address; var url = '&lt;a href="https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?"&gt;https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?&lt;/a&gt;&lt;em&gt;auth=1,&lt;your key=""&gt;'; http.get({ url: url }, function(err, getresponse, body) { if (err) { request.respond(statusCodes.INTERNAL&lt;/your&gt;&lt;/em&gt;SERVER&lt;em&gt;ERROR, 'Unable to connect.'); } else if (response.statusCode ! 200) { request.respond(statusCodes.BAD&lt;/em&gt;REQUEST, 'Bad request'); } else { request.respond(200, body); } }); };&lt;/p&gt;</content:encoded></item><item><title>Home automation with Cortana using Onion.io</title><description>&lt;p&gt;&lt;a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/"&gt;http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/"&gt;http://www.neowin.net/news/cortana-moves-beyond-the-calendar-turns-on-the-lights-and-print-reminders&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/%22%20%5Ct%20%22_blank"&gt;http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/%22%20%5Ct%20%22_blank"&gt;http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.wpcentral.com/cortana-controls-lights-and-printer"&gt;http://www.wpcentral.com/cortana-controls-lights-and-printer&lt;/a&gt;&lt;/p&gt;</description><link>http://my-ghost-blog.com/home-automation-with-cortana-using-onion-io/</link><guid isPermaLink="false">d581548c-42e9-4f5b-a898-dfe5070dfc47</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Wed, 14 May 2014 10:00:01 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/"&gt;http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/"&gt;http://www.neowin.net/news/cortana-moves-beyond-the-calendar-turns-on-the-lights-and-print-reminders&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/%22%20%5Ct%20%22_blank"&gt;http://hexus.net/mobile/news/windows-phone/69617-microsofts-cortana-interacts-internet-things/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/%22%20%5Ct%20%22_blank"&gt;http://wmpoweruser.com/home-automation-demoed-using-cortana-by-internet-of-things-company/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.wpcentral.com/cortana-controls-lights-and-printer"&gt;http://www.wpcentral.com/cortana-controls-lights-and-printer&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>How to add extended splash screen with progress rings to a Windows 8 app</title><description>&lt;p&gt;Recently I have been seeing Windows 8.1 apps (specifically ones targeting ARM) fail content compliance certification due to requirement 3.2, which states “Your app must not stop responding, end unexpectedly, or exhibit errors that significantly and adversely impact the customer experience”. Notes from testers usually say “Unfortunately, when&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-add-extended-splash-screen-with-progress-rings-to-a-windows-8-app/</link><guid isPermaLink="false">581ef64d-ba52-4e54-bb65-b68a6d2f29ee</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Tue, 10 Dec 2013 11:07:01 GMT</pubDate><content:encoded>&lt;p&gt;Recently I have been seeing Windows 8.1 apps (specifically ones targeting ARM) fail content compliance certification due to requirement 3.2, which states “Your app must not stop responding, end unexpectedly, or exhibit errors that significantly and adversely impact the customer experience”. Notes from testers usually say “Unfortunately, when our reviewers tried to launch your app failed to launch every time”.&lt;/p&gt;
+
+&lt;p&gt;Although it is certainly not the case all the time, I believe one of the reasons these apps fail because of time restrictions when launching the app. Since ARM based tables can have lower performance than x86 based ones, they fail this requirement more often. I found that adding an extended splash screen with a progress ring solves this issue since it either tells the tester that the app is not frozen or it makes it pass the time to launch test.&lt;/p&gt;
+
+&lt;p&gt;It is very easy to add an extended splash screen to your app. I am going to walk you through the steps to add for a C#/XAML-based app.&lt;/p&gt;
+
+&lt;p&gt;First, create a new XAML page called ExtendedSplash.xaml to create a background with an image of your choosing and the progress rings.&lt;/p&gt;
+
+&lt;p&gt;&lt;grid background="Black"&gt; &lt;image x:name="extendedSplashImage" source="Assets/Image.png" height="300" width="620" verticalalignment="Center"&gt; &lt;progressring x:name="ProgressRing" foreground="White" isactive="True" maxheight="50" minheight="50" maxwidth="80" minwidth="30" margin="590,560,620,234" width="78" height="74"&gt;&lt;/progressring&gt; &lt;/image&gt;&lt;/grid&gt;&lt;/p&gt;
+
+&lt;p&gt;and in ExtendedSplash.xaml.cs, enter this:&lt;/p&gt;
+
+&lt;p&gt;public ExtendedSplash(SplashScreen splash) { InitializeComponent(); this.InitializeComponent(); this.extendedSplashImage.SetValue(Canvas.LeftProperty, splash.ImageLocation.X); this.extendedSplashImage.SetValue(Canvas.TopProperty, splash.ImageLocation.Y); this.extendedSplashImage.Height = splash.ImageLocation.Height; this.extendedSplashImage.Width = splash.ImageLocation.Width; // Position the extended splash screen’s progress ring. this.ProgressRing.SetValue(Canvas.TopProperty, splash.ImageLocation.Y + splash.ImageLocation.Height + 32); this.ProgressRing.SetValue(Canvas.LeftProperty, splash.ImageLocation.X + (splash.ImageLocation.Width / 2) - 15); } internal void onSplashScreenDismissed(Windows.ApplicationModel.Activation.SplashScreen sender, object e) { // The splash screen has been dismissed and the extended splash screen is now in view. }&lt;/p&gt;
+
+&lt;p&gt;Finally, in App.xaml.cs, add this on top of OnLaunched function to call the extended splash screen.&lt;/p&gt;
+
+&lt;p&gt;if (args.PreviousExecutionState == ApplicationExecutionState.Running) { Window.Current.Activate(); return; } SplashScreen splashScreen = args.SplashScreen; ExtendedSplash eSplash = new ExtendedSplash(splashScreen); // Register an event handler to be executed when the splash screen has been dismissed. splashScreen.Dismissed += new TypedEventHandler&lt;splashscreen, object=""&gt;(eSplash.onSplashScreenDismissed); Window.Current.Content = eSplash; Window.Current.Activate();&lt;/splashscreen,&gt;&lt;/p&gt;
+
+&lt;p&gt;Now your app should display an extended splash screen with progress rings when launched until it is ready to display the initial page.&lt;/p&gt;</content:encoded></item><item><title>How to add rating remainders and access Windows Store publisher page and rate from Unity</title><description>&lt;p&gt;If you would like to add rating remainder to your apps, you can use this open source library: &lt;a href="https://github.com/jbienzms/AppPromo"&gt;https://github.com/jbienzms/AppPromo&lt;/a&gt; &lt;br&gt;
+ It is also available in Nuget in Visual Studio, search for app promo. &lt;br&gt;
+ Basically, all you have to do is something like: (there is also a sample&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-add-rating-remainders-and-access-windows-store-publisher-page-and-rate-from-unity/</link><guid isPermaLink="false">48c385d1-e72e-486f-ab74-6dc3fcf1b72c</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Wed, 30 Oct 2013 15:06:13 GMT</pubDate><content:encoded>&lt;p&gt;If you would like to add rating remainder to your apps, you can use this open source library: &lt;a href="https://github.com/jbienzms/AppPromo"&gt;https://github.com/jbienzms/AppPromo&lt;/a&gt; &lt;br&gt;
+ It is also available in Nuget in Visual Studio, search for app promo. &lt;br&gt;
+ Basically, all you have to do is something like: (there is also a sample app in the github repo)&lt;/p&gt;
+
+&lt;p&gt;&lt;common:layoutawarepage …="" xmlns:apppromo="using:AppPromo" mc:ignorable="d"&gt;&lt;/common:layoutawarepage&gt;&lt;/p&gt;
+
+&lt;p&gt;and then&lt;/p&gt;
+
+&lt;p&gt;&lt;apppromo:ratereminder x:name="RateReminder" tryremindercompleted="RateReminder_TryReminderCompleted" runsbeforereminder="3" daysbeforereminder="2"&gt;&lt;/apppromo:ratereminder&gt;&lt;/p&gt;
+
+&lt;p&gt;TryRemainderCompleted is an optional delegate that you can do other things with.&lt;/p&gt;
+
+&lt;p&gt;For Windows Store search to find the portfolio of a publisher, just include this in your Unity code when button is clicked:&lt;/p&gt;
+
+&lt;p&gt;Application.OpenURL ("ms-windows-store:Publisher?name=Sertac%20Ozercan");&lt;/p&gt;
+
+&lt;p&gt;If there is a space in the publisher name, you have to use %20 like above.&lt;/p&gt;
+
+&lt;p&gt;To rate an app:&lt;/p&gt;
+
+&lt;p&gt;Application.OpenURL ("ms-windows-store:REVIEW?PFN=" + appPackageID);&lt;/p&gt;
+
+&lt;p&gt;(appPackageID is whatever your package id is, something like “7fbddfa4-4712-4c32-96cf-255a3fceff5f”)&lt;/p&gt;
+
+&lt;p&gt;This page has information on other store protocols like searching, updates: &lt;a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh974767.aspx"&gt;http://msdn.microsoft.com/en-us/library/windows/apps/hh974767.aspx&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title>New app: Medium Reader for Windows 8.1</title><description>&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://medium.com"&gt;Medium&lt;/a&gt; is a publishing platform from the founders of Twitter, that people can share ideas and stories with public.&lt;/li&gt;
+&lt;li&gt;Medium Reader, exclusively for Windows 8.1, makes it easy to follow your favorite collections, read and share articles.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://apps.microsoft.com/windows/en-us/app/medium-reader/7fbddfa4-4712-4c32-96cf-255a3fceff5f"&gt;Download Medium Reader from the Windows Store&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[nggallery id=17]&lt;/p&gt;</description><link>http://my-ghost-blog.com/new-app-medium-reader-for-windows-8-1/</link><guid isPermaLink="false">47c02740-196c-4b7c-ae24-59f07e03dbe6</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Wed, 23 Oct 2013 10:30:00 GMT</pubDate><content:encoded>&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://medium.com"&gt;Medium&lt;/a&gt; is a publishing platform from the founders of Twitter, that people can share ideas and stories with public.&lt;/li&gt;
+&lt;li&gt;Medium Reader, exclusively for Windows 8.1, makes it easy to follow your favorite collections, read and share articles.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://apps.microsoft.com/windows/en-us/app/medium-reader/7fbddfa4-4712-4c32-96cf-255a3fceff5f"&gt;Download Medium Reader from the Windows Store&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[nggallery id=17]&lt;/p&gt;</content:encoded></item><item><title>Fixing "Element not found. (Exception from HRESULT: 0x80070490)" error in Windows 8.x</title><description>&lt;p&gt;Recently encountered this issue on a Unity 4.3b4 project targeting Windows 8.1 SDK, however it was running fine targeting 8.0 SDK. I was trying to save a screenshot from the app, the app has a callback to the C# function below:&lt;/p&gt;
+
+&lt;p&gt;private static async void saveImageAsync(byte[&lt;/p&gt;</description><link>http://my-ghost-blog.com/fixing-element-not-found-exception-from-hresult-0x80070490-error-in-windows-8-x/</link><guid isPermaLink="false">96caff46-7cfb-4994-9ab8-d4303ded95a4</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Mon, 14 Oct 2013 10:14:31 GMT</pubDate><content:encoded>&lt;p&gt;Recently encountered this issue on a Unity 4.3b4 project targeting Windows 8.1 SDK, however it was running fine targeting 8.0 SDK. I was trying to save a screenshot from the app, the app has a callback to the C# function below:&lt;/p&gt;
+
+&lt;p&gt;private static async void saveImageAsync(byte[] pngData) {      Exception ex;      try      {                 FileSavePicker picker = new FileSavePicker();                 picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;                 picker.FileTypeChoices.Add("Suggested File Type", new List&lt;string&gt;() {".png"});                 StorageFile file = await picker.PickSaveFileAsync();                   if (file != null)                 {                   ...&lt;/string&gt;&lt;/p&gt;
+
+&lt;p&gt;The project had access to picturesLibrary, webcam and microphone. When it got to the “FileSavePicker picker = new FileSavePicker();”, it was giving an exception of “Element not found. (Exception from HRESULT: 0x80070490)”. &lt;br&gt;
+ I found that it wasn’t running on the UI thread, which is why it is not finding the save file picker. The fix was to use a dispatcher to a UI thread. If you surround the above code with dispatcher below, it will run on the UI thread. &lt;br&gt;
+``&lt;/p&gt;
+
+&lt;p&gt;await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =&gt;; { // code that goes to UI thread }&lt;/p&gt;</content:encoded></item><item><title>Migrating from Windows 8.0 SearchPane to Windows 8.1 SearchBox</title><description>&lt;p&gt;Windows 8.1 brings improvements to Windows 8 in many areas and search experience in apps is one of these areas. In Windows 8.0, the default search experience was to go to the search charm, which offered to search within the app by default (if supported) with a control&lt;/p&gt;</description><link>http://my-ghost-blog.com/migrating-from-windows-8-0-searchpane-to-windows-8-1-searchbox/</link><guid isPermaLink="false">e34ab4c6-f902-4ba4-baa1-a5b97c97d632</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Thu, 05 Sep 2013 14:42:35 GMT</pubDate><content:encoded>&lt;p&gt;Windows 8.1 brings improvements to Windows 8 in many areas and search experience in apps is one of these areas. In Windows 8.0, the default search experience was to go to the search charm, which offered to search within the app by default (if supported) with a control called SearchPane.&lt;/p&gt;
+
+&lt;p&gt;In Windows 8.1, search charm can also search inside the app, but the default behavior is to search in “Everywhere”. To search within an app, you need to switch to the app specifically. Now, search experience is controlled by the apps, which introduces the SearchBox control that makes it easy to add the search box capability.&lt;/p&gt;
+
+&lt;p&gt;Since the default search charm behavior is not within the app, you should transition from using SearchPane to SearchBox for an easier, convenient and consistent search experience.&lt;/p&gt;
+
+&lt;p&gt;In this post, I will show you how you can transition from Windows 8.0 SearchPane to 8.1 SearchBox control in JavaScript, and it is very similar in C#.&lt;/p&gt;
+
+&lt;p&gt;In 8.0, to implement search you need to use something like:&lt;/p&gt;
+
+&lt;p&gt;Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onquerysubmitted = function (eventObject) { var queryText = eventObject.queryText; // do something with queryText };&lt;/p&gt;
+
+&lt;p&gt;If you want to have suggestions (optional):&lt;/p&gt;
+
+&lt;p&gt;Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onsuggestionsrequested = function (eventObject) { var queryText = eventObject.queryText, suggestionRequest = eventObject.request; var query = queryText.toLowerCase(); for (var i = 0, len = suggestionList.length; i &amp;lt; len; i++) { if (suggestionList[i].substr(0, query.length).toLowerCase() &lt;mark&gt;= query) { suggestionRequest.searchSuggestionCollection.appendQuerySuggestion(suggestionList[i]); } } } };&lt;/mark&gt;&lt;/p&gt;
+
+&lt;p&gt;In 8.1, first you need to add the SearchBox to your HTML:&lt;/p&gt;
+
+&lt;div id="searchBoxId" data-win-control="WinJS.UI.SearchBox"&gt;&lt;/div&gt;
+
+&lt;p&gt;In your JS file, get the searchBoxId element, and subscribe to the suggestions (optional) and submit event handlers.&lt;/p&gt;
+
+&lt;p&gt;var searchBox = document.getElementById("searchBoxId"); searchBox.addEventListener("suggestionsrequested", suggestionsRequestedHandler); searchBox.addEventListener("querysubmitted", querySubmittedHandler);&lt;/p&gt;
+
+&lt;p&gt;If you want to type in and have it automatically register in the search box, set focusOnKeyboardInput to true.&lt;/p&gt;
+
+&lt;p&gt;searchBox.winControl.focusOnKeyboardInput = true;&lt;/p&gt;
+
+&lt;p&gt;This is the suggestions event handler:&lt;/p&gt;
+
+&lt;p&gt;function suggestionsRequestedHandler(eventObject) { var queryText = eventObject.detail.queryText, query = queryText.toLowerCase(), suggestionCollection = eventObject.detail.searchSuggestionCollection; for (var i = 0, len = suggestionList.length; i &amp;lt; len; i++) { if (suggestionList[i].substr(0, query.length).toLowerCase() = query) { suggestionCollection.appendQuerySuggestion(suggestionList[i]); } } }&lt;/p&gt;
+
+&lt;p&gt;This is the submit event handler. Note that the eventObject.queryText is now called eventObject.detail.queryText.&lt;/p&gt;
+
+&lt;p&gt;function querySubmittedHandler(eventObject) { var queryText = eventObject.detail.queryText; //do something with queryText }&lt;/p&gt;
+
+&lt;p&gt;If you want to have an appbar item to focus on the search box:&lt;/p&gt;
+
+&lt;p&gt;document.getElementById("cmdAdd").addEventListener("click", doClickAdd, false); function doClickAdd() { var searchBox = document.getElementById("searchBoxId"); // this used to be the searchPane searchBox.focus(); // and after defining searchPane, you needed to do searchPane.show() }&lt;/p&gt;
+
+&lt;p&gt;Finally, here is Breezy with Windows 8.1 SearchBox: &lt;br&gt;
+&lt;a href="http://sertacozercan.com/wp-content/uploads/Breezy-SearchBox.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/Breezy-SearchBox-150x84.png" alt="Breezy-SearchBox" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Also, check out the &lt;a href="http://msdn.microsoft.com/en-us/library/windows/apps/bg182890.aspx#three"&gt;Search changes UX documentation&lt;/a&gt; and &lt;a href="http://code.msdn.microsoft.com/SearchBox-control-sample-0f64f94d"&gt;SearchBox sample&lt;/a&gt;. &lt;br&gt;
+ If you have any questions, comments or want to add anything, please leave a message below.&lt;/p&gt;</content:encoded></item><item><title>Getting started with Windows Phone App Studio and building your first Windows Phone app</title><description>&lt;p&gt;Microsoft recently released &lt;a href="http://apps.windowsstore.com/default.htm"&gt;App Studio&lt;/a&gt;, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog,&lt;/p&gt;</description><link>http://my-ghost-blog.com/getting-started-with-windows-phone-app-studio-and-building-your-first-windows-phone-app/</link><guid isPermaLink="false">3b3be65a-9b2f-4ec0-abc2-fe2a6b578f08</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Tue, 03 Sep 2013 16:18:16 GMT</pubDate><content:encoded>&lt;p&gt;Microsoft recently released &lt;a href="http://apps.windowsstore.com/default.htm"&gt;App Studio&lt;/a&gt;, which is a web-based Windows Phone app creation tool. Not only it is a capable tool for creating apps without any programming experience, it can also be great tool for rapid prototyping. Recently, I was thinking about creating an app for my website and blog, and thought why not give the new App Studio a try!&lt;/p&gt;
+
+&lt;p&gt;There are companies and individuals that have zero or minimal software development experience but they want to create apps to show their portfolio/products. Maybe you just want to create an app for your favorite local sports team. App Studio can be a great tool to get started on building your first Windows Phone app or maybe even your first mobile app!&lt;/p&gt;
+
+&lt;p&gt;It is very easy to get started, go to &lt;a href="http://apps.windowsstore.com/default.htm"&gt;App Studio&lt;/a&gt;, and either select from a template or from a blank project. Templates provide pre-defined sections and menus so it is easy to customize them with your own content. This tutorial creates an app from a blank template.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-1.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-1-150x115.png" alt="AppStudio-1" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Next step is to create a title, description and image for your app.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-2-150x116.png" alt="AppStudio-2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You need to create sections for your app. If you have done WP development before, each section is a panorama item. In each section, you need to give a name to the section and datasource.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-3.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-3-150x116.png" alt="AppStudio-3" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Datasource can be one of these in each section:&lt;/p&gt;
+
+&lt;p&gt;•             RSS feed,&lt;/p&gt;
+
+&lt;p&gt;•             YouTube search query or channel,&lt;/p&gt;
+
+&lt;p&gt;•             Flickr search query or username,&lt;/p&gt;
+
+&lt;p&gt;•             HTML5 page,&lt;/p&gt;
+
+&lt;p&gt;•             Collection (which is a list of items, and each item includes a title, subtitle, image and description)&lt;/p&gt;
+
+&lt;p&gt;You can also customize the main and detail pages of each section. Main page is basically the top view (list of items), and detail page is when you click on an item to get more information. For example, list of YouTube videos and playing an individual video.&lt;/p&gt;
+
+&lt;p&gt;The layout of both the main and detail pages can be customized from a list of text, to pictures, to pictures with text, and many more.&lt;/p&gt;
+
+&lt;p&gt;Each detail page automatically comes with Text-to-speech, share and pin to start features enabled by default.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-4.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-4-150x116.png" alt="AppStudio-4" title=""&gt;&lt;/a&gt;  &lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-5.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-5-150x116.png" alt="AppStudio-5" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you are done adding sections, you can customize the app style, including the accent, foreground and app bar colors, and background image.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-6.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-6-150x116.png" alt="AppStudio-6" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also customize the tile (cycle, flip or iconic), and splash and lock screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-7.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-7-150x116.png" alt="AppStudio-7" title=""&gt;&lt;/a&gt;  &lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-8.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-8-150x116.png" alt="AppStudio-8" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, your app will be generated and you can download the source code (visual studio project), download the publish package (to publish directly to the Windows Phone Store), or you can install and test on your device by scanning the certificate, and then the app QR codes. This is also an incredibly useful way to use QR codes.&lt;/p&gt;
+
+&lt;p&gt;You can also develop on the Visual Studio project later on when you are ready to add more advanced features.&lt;/p&gt;
+
+&lt;p&gt;To download and install my app; first, scan this certificate:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-cert.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-cert.png" alt="AppStudio-cert" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Then scan this for the app itself, and it will automatically download to your phone:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-app.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-app.png" alt="AppStudio-app" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are some screenshots from the finished app:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-11.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-11-90x150.png" alt="AppStudio-11" title=""&gt;  &lt;/a&gt; &lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-12.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-12-90x150.png" alt="AppStudio-12" title=""&gt;&lt;/a&gt;   &lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-14.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-14-90x150.png" alt="AppStudio-14" title=""&gt;&lt;/a&gt;  &lt;a href="http://sertacozercan.com/wp-content/uploads/AppStudio-13.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/AppStudio-13-90x150.png" alt="AppStudio-13" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I am also submitting the app to be published on the Windows Phone Store, so it should be on the Store soon.&lt;/p&gt;</content:encoded></item><item><title>How to do basic web scraping using Scrapy on a Windows Azure virtual machine</title><description>&lt;p&gt;In this tutorial, I will do a walkthrough on how to scrape links and titles from a website using &lt;a href="http://scrapy.org/"&gt;Scrapy&lt;/a&gt; on an Azure virtual machine.&lt;/p&gt;
+
+&lt;p&gt;First, create a VM through the Azure portal. It can be either Windows or Linux since Scrapy runs on both. In this tutorial Ubuntu 13.&lt;/p&gt;</description><link>http://my-ghost-blog.com/how-to-do-basic-web-scraping-using-scrapy-on-windows-azure/</link><guid isPermaLink="false">9f037ac2-58d6-4746-ab08-d7261576cebb</guid><dc:creator>Sertaç Özercan</dc:creator><pubDate>Mon, 19 Aug 2013 14:54:04 GMT</pubDate><content:encoded>&lt;p&gt;In this tutorial, I will do a walkthrough on how to scrape links and titles from a website using &lt;a href="http://scrapy.org/"&gt;Scrapy&lt;/a&gt; on an Azure virtual machine.&lt;/p&gt;
+
+&lt;p&gt;First, create a VM through the Azure portal. It can be either Windows or Linux since Scrapy runs on both. In this tutorial Ubuntu 13.04 will be used.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/scrapy-azure-1.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/scrapy-azure-1-150x92.png" alt="scrapy-azure-1" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After you create a VM and it starts, go to Dashboard and copy the Public IP address.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/scrapy-azure-2.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/scrapy-azure-2-150x92.png" alt="scrapy-azure-2" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Use your favorite SSH client to connect to the VM. The username is azureuser.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://sertacozercan.com/wp-content/uploads/scrapy-azure-3.png"&gt;&lt;img src="http://sertacozercan.com/wp-content/uploads/scrapy-azure-3-150x94.png" alt="scrapy-azure-3" title=""&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After you connect, use pip or easy_install to install Scrapy.&lt;/p&gt;
+
+&lt;div&gt;pip install Scrapy
+
+or
+
+&lt;div id="installing-scrapy"&gt;easy_install Scrapy
+
+(for Ubuntu 13.04, make sure to install python-dev with “sudo apt-get install python-dev” or it gives you an error)
+
+In this tutorial , we are going to scrape titles and links to Medium’s collections, since they don’t provide a list of all collections.
+
+Start by creating a new Scrapy project by using
+
+
+&lt;pre&gt;&lt;code&gt;scrapy startproject medium  
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;/div&gt;&lt;div id="platform-specific-installation-notes"&gt;This will give you a folder structure in your home directory. Open ~/medium/medium/items.py with your favorite text editor (I use nano, don’t judge me!) and define your class.&lt;/div&gt;&lt;div&gt;In this case, we have title and link as our fields.&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;[![scrapy-azure-4](http://sertacozercan.com/wp-content/uploads/scrapy-azure-4-150x106.png)](http://sertacozercan.com/wp-content/uploads/scrapy-azure-4.png)&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;Now, we want to create a spider to scrape the page. Create a new python file for the name of your choosing in ~/medium/medium/spiders/ (for example, mediumspider.py)&lt;/div&gt;&lt;div&gt;Import the BaseSpider and XPath classes since these are what we are going to be used. Also, import the class you made in the last step.&lt;/div&gt;&lt;div&gt;Give it a name, allowed domain and the page you want to scrape.&lt;/div&gt;&lt;div&gt;Define a parse method to scrape every link inside a specific class name (collection-item in this case) with specific tags or links (text inside div/h3 and the href tag inside the initial link) and append it to a custom dictionary called items.&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;[![scrapy-azure-5](http://sertacozercan.com/wp-content/uploads/scrapy-azure-5-150x106.png)](http://sertacozercan.com/wp-content/uploads/scrapy-azure-5.png)&lt;/div&gt;&lt;div&gt;You can run this with
+
+
+&lt;pre&gt;&lt;code&gt;scrapy crawl medium  
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+or you can [export the output to a file](http://doc.scrapy.org/en/0.16/topics/feed-exports.html#topics-feed-exports), such as json, xml, csv with
+
+&lt;/div&gt;&lt;div&gt;```  
+scrapy crawl medium -o items.json -t json  
+```
+
+You can schedule a cron job to automate this process.
+
+Please post a comment if you think this was helpful or how to improve it to help others.
+
+&lt;/div&gt;&lt;/div&gt;</content:encoded></item></channel></rss>

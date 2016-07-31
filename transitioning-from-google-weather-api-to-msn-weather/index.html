@@ -1,0 +1,225 @@
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Transitioning from Google Weather API to MSN Weather</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=44c55ef586">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+
+    <link rel="canonical" href="http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta name="referrer" content="origin-when-cross-origin">
+    
+    <meta property="og:site_name" content="Sertaç Özercan">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Transitioning from Google Weather API to MSN Weather">
+    <meta property="og:description" content="Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN">
+    <meta property="og:url" content="http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta property="article:published_time" content="2012-12-08T18:13:27.000Z">
+    <meta property="article:modified_time" content="2013-08-13T11:54:02.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Transitioning from Google Weather API to MSN Weather">
+    <meta name="twitter:description" content="Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN">
+    <meta name="twitter:url" content="http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Sertaç Özercan">
+    <meta name="twitter:site" content="@sozercan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sertaç Özercan",
+        "logo": "http://my-ghost-blog.com/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Sertaç Özercan",
+        "image": "//www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&d=mm&r=x",
+        "url": "http://my-ghost-blog.com/author/sozercan/",
+        "sameAs": [
+            "http://sertacozercan.com"
+        ]
+    },
+    "headline": "Transitioning from Google Weather API to MSN Weather",
+    "url": "http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/",
+    "datePublished": "2012-12-08T18:13:27.000Z",
+    "dateModified": "2013-08-13T11:54:02.000Z",
+    "description": "Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.9">
+    <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css?v=44c55ef586">
+</head>
+
+<body class="post-template">
+
+    <div id="sidebar">
+        <div id="sidebar-content" class="inner">
+            
+            <h2 class="blog-title"><a href="http://my-ghost-blog.com">Sertaç Özercan</a></h2>
+            <h3 class="blog-description"></h3>
+
+            <form id="search">
+                <input id="search-field" placeholder="Search">
+            </form>
+
+            <div id="sidebar-links">
+                <ul id="subscription-links">
+                    <li><a target="_blank" href="http://my-ghost-blog.com/rss/"><i class="fa fa-rss"></i>Subscribe via RSS</a></li>
+                    <!-- No support yet
+                    <li><a target="_blank" href=" "><i class="fa fa-envelope"></i>Subscribe via email<a></li>
+                    -->
+                </ul>
+                <ul id="navigation">
+                        <li class="nav-home" role="presentation"><a href="../"><i class="fa fa-navicon"></i>Home</a></li>
+    <li class="nav-projects" role="presentation"><a href="../projects/"><i class="fa fa-navicon"></i>Projects</a></li>
+    <li class="nav-about" role="presentation"><a href="../about-me"><i class="fa fa-navicon"></i>About</a></li>
+    <li class="nav-publications" role="presentation"><a href="../publications/"><i class="fa fa-navicon"></i>Publications</a></li>
+
+                </ul>
+                <ul id="sidebar-external">
+                    <li><a href="https://twitter.com/sozercan"><i class="fa fa-twitter"></i>Twitter</a></li>
+<li><a href="https://github.com/sozercan"><i class="fa fa-github"></i>GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/sozercan"><i class="fa fa-linkedin"></i>LinkedIn</a></li>
+<li><a target="_blank" href="mailto:sozercan@gmail.com"><i class="fa fa-envelope"></i>Contact</a></li>                </ul>
+            </div>
+
+            <footer class="site-footer">
+                <section class="copyright">© 2016 <a href="mailto:sozercan@gmail.com">Sertaç Özercan</a></section>
+                <section class="poweredby">
+                    <i class="icon-ghost"></i><a href="https://ghost.org">Ghost</a> -
+                    <a href="https://github.com/dlecina/StayPuft">StayPuft theme</a>
+                </section>
+            </footer>
+        </div>
+    </div>
+
+    <main>
+        <div class="main-inner">
+            <section id="results"></section>
+            
+
+
+    <article class="post">
+
+        <header class="post-header">
+
+            <h1 class="post-title">Transitioning from Google Weather API to MSN Weather</h1>
+            
+            <section class="post-meta">
+                <span class="post-time">
+                    <i class="fa fa-calendar"></i>
+                    <time datetime="2012-12-08" class="timeago">4 years ago</time>
+                    <time datetime="2012-12-08" class="fulldate">December 8th, 2012</time>
+                </span>
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Since <a href="http://thenextweb.com/google/2012/08/28/did-google-just-quietly-kill-private-weather-api/">Google killed its weather API</a> without a warning over the summer, I have been looking for a new provider for <a href="http://sertacozercan.com/portfolio/#weather">my Weather iOS application</a>. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses. <br>
+ Recently, I came across the MSN Weather API that is quite similar to Google Weather. The feed is accessible from</p>
+
+<p><a href="http://weather.service.msn.com/data.aspx?weadegreetype=f&amp;weasearchstr=94102">http://weather.service.msn.com/data.aspx?weadegreetype=f&amp;weasearchstr=94102</a></p>
+
+<p>In the URL, <em>weadegreetype</em> can be c for celcius or f for fahrenheit, and <em>weasearchstr</em> can either be ZIP code, city, state name or even latitude, longitude. <br>
+ It provides an XML feed that includes the current and future conditions as a code and text descriptions. <a href="http://stackoverflow.com/questions/12142094/msn-weather-api-list-of-conditions">This question over at StackOverflow</a> identified various skycodes and their corresponding condition, and time. <br>
+ If you need weather condition images, you can use <a href="http://local.msn.com/worldweather.aspx">http://local.msn.com/worldweather.aspx</a> to see how the skycodes correspond to the weather images. For example, 26 (cloudy) skycode correspond to <a href="http://blu.stc.s-msn.com/as/wea3/i/en-us/law/26.gif">26.gif</a> which is the cloudy weather condition image, where the <em>imagerelativeurl</em> can be found in the feed.</p>
+
+<div><div id="post-1425">Please let me know if you have any other questions or comments about the article in the comments section.
+
+</div></div>
+        </section>
+
+        <footer class="post-footer">
+
+
+                <figure class="author-image">
+                    <a class="img" href="../author/sozercan/" style="background-image: url(http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s&amp;)"><span class="hidden">Sertaç Özercan's Picture</span></a>
+                </figure>
+
+                <section class="author">
+                    <h4><a href="../author/sozercan/">Sertaç Özercan</a></h4>
+
+                        <p>Read <a href="../author/sozercan/">more posts</a> by this author.</p>
+                    <div class="author-meta">
+                        <span class="author-location icon-location">San Francisco, CA</span>
+                        <span class="author-link icon-link"><a href="http://sertacozercan.com">http://sertacozercan.com</a></span>
+                    </div>
+                </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <div class="share-icons">
+                    <a class="fa fa-twitter-square" href="https://twitter.com/intent/tweet?text=Transitioning%20from%20Google%20Weather%20API%20to%20MSN%20Weather&amp;url=http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="fa fa-facebook-square" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="fa fa-google-plus-square" href="https://plus.google.com/share?url=http://my-ghost-blog.com/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </div>
+            </section>
+
+        </footer>
+
+        <section class="post-comments">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'sozercan'; // required: replace example with your forum shortname
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+
+        </div>
+    </main>
+
+    
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/prism-loader.js?v=44c55ef586"></script>
+    <script type="text/javascript" src="../assets/js/prism.js?v=44c55ef586"></script>
+    <script src="../assets/js/jquery.ghostHunter.min.js?v=44c55ef586"></script>
+    <script>
+        $("#search-field").ghostHunter({
+            rss : "http://my-ghost-blog.com/rss/",
+            results : "#results",
+            onKeyUp : true,
+            zeroResultsInfo : false
+        });
+    </script>
+</body>
+
