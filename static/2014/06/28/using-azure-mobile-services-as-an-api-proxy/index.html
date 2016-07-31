@@ -1,0 +1,229 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Using Azure Mobile Services as an API proxy</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=7481804497">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/">
+    <meta name="referrer" content="origin-when-cross-origin">
+    
+    <meta property="og:site_name" content="Sertaç Özercan">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Using Azure Mobile Services as an API proxy">
+    <meta property="og:description" content="API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more. In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services. Twitter Since">
+    <meta property="og:url" content="http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/">
+    <meta property="article:published_time" content="2014-06-28T10:50:35.000Z">
+    <meta property="article:modified_time" content="2014-06-30T16:59:03.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Using Azure Mobile Services as an API proxy">
+    <meta name="twitter:description" content="API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more. In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services. Twitter Since">
+    <meta name="twitter:url" content="http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Sertaç Özercan">
+    <meta name="twitter:site" content="@sozercan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sertaç Özercan",
+        "logo": "http://my-ghost-blog.com/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Sertaç Özercan",
+        "image": "//www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&d=mm&r=x",
+        "url": "http://my-ghost-blog.com/author/sozercan/",
+        "sameAs": [
+            "http://sertacozercan.com"
+        ]
+    },
+    "headline": "Using Azure Mobile Services as an API proxy",
+    "url": "http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/",
+    "datePublished": "2014-06-28T10:50:35.000Z",
+    "dateModified": "2014-06-30T16:59:03.000Z",
+    "description": "API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more. In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services. Twitter Since"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.9">
+    <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="../../../../">Home</a></li>
+            <li class="nav-projects" role="presentation"><a href="../../../../projects/">Projects</a></li>
+            <li class="nav-about" role="presentation"><a href="../../../../about-me">About</a></li>
+            <li class="nav-publications" role="presentation"><a href="../../../../publications/">Publications</a></li>
+            <li class="nav-contact" role="presentation"><a href="../../../../contact/">Contact</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="http://my-ghost-blog.com/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Using Azure Mobile Services as an API proxy</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2014-06-28">28 June 2014</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>API proxies can be used for many applications including logging, analytics, convenience, security, changing backend services without affecting developers and many more.</p>
+
+<p>In this post, we are going to see two examples of API proxies (Twitter and Ordrin), and how to set up using Microsoft Azure Mobile Services.</p>
+
+<h4 id="twitter">Twitter</h4>
+
+<p>Since Twitter switched to v1.1 API (and retired access to the v1 API), it might be a little tricky to access to Twitter API since it now uses oauth authentication to get any data. Azure Mobile Services makes it very easy to access Twitter (and Facebook, Google and Microsoft Live Connect).</p>
+
+<p>For this example, we are going to be retrieve Twitter v1.1 API data by authenticating Twitter on Azure Mobile Services and setting up an API proxy for any search queries.</p>
+
+<p>First thing is to create a Twitter app at <a href="https://apps.twitter.com/">https://apps.twitter.com/</a></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-1.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-1-150x107.png" alt="twitterAPI-1" title=""></a></p>
+
+<p>Once the app is registered, it will provide 4 types of keys: API key, API secret, access token and access token secret, which we will use in the Azure mobile service.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-2.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-2-150x107.png" alt="twitterAPI-2" title=""></a></p>
+
+<p>Now, in Azure portal at <a href="https://manage.windowsazure.com">https://manage.windowsazure.com</a>, create a new mobile service</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-3.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-3-150x107.png" alt="twitterAPI-3" title=""></a></p>
+
+<p>And then create a new API. For GET request, you might want to change it as “Everyone”, so anyone without a key can access it.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-4.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-4-150x107.png" alt="twitterAPI-4" title=""></a></p>
+
+<p>In the API section, use this code and replace API keys with your Twitter app. This provides a response to a GET method that includes a single query, and uses Twitter API to authenticate to twitter and search for the given query and respond back with the results. GET request should be to</p>
+
+<p>https://<servicename>.azure-mobile.net/api/<apiname>?q=<searchquery></searchquery></apiname></servicename></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/twitterAPI-5.png"><img src="http://sertacozercan.com/wp-content/uploads/twitterAPI-5-150x107.png" alt="twitterAPI-5" title=""></a></p>
+
+<p>var http = require('request'); exports.get = function (request, response) { var twitterUrl = "<a href="https://api.twitter.com/1.1/search/tweets.json?q=%23">https://api.twitter.com/1.1/search/tweets.json?q=%23</a>" + request.query.q; // Create a new request with OAuth credentials. http.get({ url: twitterUrl, oauth: { consumer<em>key: "<api key>", consumer</api></em>secret: "<api secret>", token: "<access token>", token_secret: "<access secret>" }}, function (error, resp, body) { if (!error &amp;&amp; resp.statusCode <mark> 200) { response.send(200, body); } else { console.error('Could not contact Twitter'); } }); }</mark></access></access></api></p>
+
+<h4 id="ordrin">Ordrin</h4>
+
+<p><a href="http://ordr.in/">Ordrin </a>is an API provider that enables food ordering for any applications. Unfortunately, they don’t support Cross Origin Resource Sharing (CORS) yet, so xhr requests from the web is not accepted by their server, since the request isn’t in the list of Access-Control-Allow-Origin that Ordrin accepts.</p>
+
+<p>To get around this limitation, we can set up an API proxy through Azure Mobile Services to route all request to the API there.</p>
+
+<p>To get started, go to <a href="https://hackfood.ordr.in/">https://hackfood.ordr.in/</a> and register and create a new app.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-1.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-1-150x92.png" alt="Ordrin-1" title=""></a></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-2.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-2-150x92.png" alt="Ordrin-2" title=""></a></p>
+
+<p>Create a new API just like in the previous example and replace the secret key.</p>
+
+<p>In this API call, we are going to be requesting list of restaurants in the area that delivers ASAP, and that requires a zip, city, and address. GET request should be sent to: (this time we have 3 different queries)</p>
+
+<p>https://<servicename>.azure-mobile.net/api/<apiname>?zip=<searchquery>?city=<searchquery>?address=<searchquery></searchquery></searchquery></searchquery></apiname></servicename></p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/Ordrin-3.png"><img src="http://sertacozercan.com/wp-content/uploads/Ordrin-3-150x107.png" alt="Ordrin-3" title=""></a></p>
+
+<p>var http = require('request'); exports.get = function(request, response) { var zip = request.query.zip; var city = request.query.city; var address = request.query.address; var url = '<a href="https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?">https://r-test.ordr.in/dl/ASAP/'+zip+'/'+city+'/'+address+'?</a><em>auth=1,<your key>'; http.get({ url: url }, function(err, getresponse, body) { if (err) { request.respond(statusCodes.INTERNAL</your></em>SERVER<em>ERROR, 'Unable to connect.'); } else if (response.statusCode ! 200) { request.respond(statusCodes.BAD</em>REQUEST, 'Bad request'); } else { request.respond(200, body); } }); };</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/sozercan/" style="background-image: url(http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s&amp;)"><span class="hidden">Sertaç Özercan's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/sozercan/">Sertaç Özercan</a></h4>
+
+                    <p>Read <a href="../../../../author/sozercan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">San Francisco, CA</span>
+                    <span class="author-link icon-link"><a href="http://sertacozercan.com">http://sertacozercan.com</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Using%20Azure%20Mobile%20Services%20as%20an%20API%20proxy&amp;url=http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://my-ghost-blog.com/2014/06/28/using-azure-mobile-services-as-an-api-proxy/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../../../12/19/how-to-opt-out-of-low-memory-devices-on-windows-phone-8-1/">
+        <section class="post">
+            <h2>How to opt out of low memory devices on Windows Phone 8.1 and Windows 10</h2>
+            <p>UPDATE for UWP apps: StoreManifest schema got updated in Windows 10.  https://msdn.microsoft.com/en-us/library/windows/apps/…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../05/14/home-automation-with-cortana-using-onion-io/">
+        <section class="post">
+            <h2>Home automation with Cortana using Onion.io</h2>
+            <p>http://www.engadget.com/2014/05/11/microsofts-cortana-could-soon-control-your-mood-lighting/ http://www.neowin.net/news/cortana-moves-beyond-the-calendar-turns-on-the-lights-and-print-reminders http://hexus.net/mobile/news/…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://my-ghost-blog.com">Sertaç Özercan</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=7481804497"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=7481804497"></script>
+
+</body>

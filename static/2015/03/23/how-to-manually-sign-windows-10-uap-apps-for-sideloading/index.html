@@ -1,0 +1,206 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>How to manually sign Windows 10 UAP apps for sideloading</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=7481804497">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/">
+    <meta name="referrer" content="origin-when-cross-origin">
+    
+    <meta property="og:site_name" content="Sertaç Özercan">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to manually sign Windows 10 UAP apps for sideloading">
+    <meta property="og:description" content="Note: This article was written for Preview tooling that was released in March 2015. With the current Visual Studio 2015 CTP6 with Windows 10 Tools Preview setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you">
+    <meta property="og:url" content="http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/">
+    <meta property="article:published_time" content="2015-03-23T21:31:08.000Z">
+    <meta property="article:modified_time" content="2015-05-16T11:02:08.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How to manually sign Windows 10 UAP apps for sideloading">
+    <meta name="twitter:description" content="Note: This article was written for Preview tooling that was released in March 2015. With the current Visual Studio 2015 CTP6 with Windows 10 Tools Preview setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you">
+    <meta name="twitter:url" content="http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Sertaç Özercan">
+    <meta name="twitter:site" content="@sozercan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sertaç Özercan",
+        "logo": "http://my-ghost-blog.com/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Sertaç Özercan",
+        "image": "//www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&d=mm&r=x",
+        "url": "http://my-ghost-blog.com/author/sozercan/",
+        "sameAs": [
+            "http://sertacozercan.com"
+        ]
+    },
+    "headline": "How to manually sign Windows 10 UAP apps for sideloading",
+    "url": "http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/",
+    "datePublished": "2015-03-23T21:31:08.000Z",
+    "dateModified": "2015-05-16T11:02:08.000Z",
+    "description": "Note: This article was written for Preview tooling that was released in March 2015. With the current Visual Studio 2015 CTP6 with Windows 10 Tools Preview setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.9">
+    <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="../../../../">Home</a></li>
+            <li class="nav-projects" role="presentation"><a href="../../../../projects/">Projects</a></li>
+            <li class="nav-about" role="presentation"><a href="../../../../about-me">About</a></li>
+            <li class="nav-publications" role="presentation"><a href="../../../../publications/">Publications</a></li>
+            <li class="nav-contact" role="presentation"><a href="../../../../contact/">Contact</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="http://my-ghost-blog.com/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">How to manually sign Windows 10 UAP apps for sideloading</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-03-23">23 March 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p><em>Note: This article was written for Preview tooling that was released in March 2015.</em></p>
+
+<p>With the current <a href="http://dev.windows.com/en-US/windows-10-developer-preview-tools">Visual Studio 2015 CTP6 with Windows 10 Tools Preview</a> setup, Visual Studio will not automatically sign Windows 10 UAP apps for side loading (since this is a preview, these are expected). Since you cannot submit to the Store yet, you might want to share your apps with others, but after you create a package and try to sideload, you’ll get the “The package or bundle is not digitally signed or it’s signature is corrupted” error.</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-1.png"><img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-1.png" alt="W10Sideload-1" title=""></a></p>
+
+<p>To fix this, you need to manually sign your appx packages. Here are the steps:</p>
+
+<ol>
+<li>Create an appx package as usual from Project &gt; Store &gt; Create App Packages  </li>
+<li>Copy the app temporary key from inside the VS project (i.e. App1_TemporaryKey.pfx) to the newly created test folder  </li>
+<li>Open a command prompt and navigate to the test folder and type this (change package names and locations appropriately)</li>
+</ol>
+
+<p><strong>C:\Users\Sertac\Documents\Visual Studio 2015\Projects\PH10\App1\AppPackages\Product Hunt<em>0.1.0.</em>AnyCPU<em>Test&gt;</em></strong>“C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe” sign /fd sha256 /f App1TemporaryKey.pfx “Product Hunt<em>0.1.0.0</em>AnyCPU.appx”</p>
+
+<p>You’ll get this output:</p>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-2.png"><img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-2.png" alt="W10Sideload-2" title=""></a></p>
+
+<ol>
+<li>Right click on the pfx file, and select Open. Navigate to the certificate, right click and select All Tasks &gt; Export (there is probably a command line replacement for this but you only need to do this once. You can reuse the same certificate every time (although it needs to be copied to the test folder), you just need to do step 3 on every package.)</li>
+</ol>
+
+<p><a href="http://sertacozercan.com/wp-content/uploads/W10Sideload-3.jpeg"><img src="http://sertacozercan.com/wp-content/uploads/W10Sideload-3.jpeg" alt="W10Sideload-3" title=""></a></p>
+
+<ol>
+<li>Follow the wizard to create a .CER file, and copy it to the folder where appx file is (test folder).  </li>
+<li>You can now sideload as usual by running Add-AppDevPackage.ps1 with Powershell.</li>
+</ol>
+
+<p>Let me know whether this worked for you, or if there is a better way in the comments section below.</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/sozercan/" style="background-image: url(http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s&amp;)"><span class="hidden">Sertaç Özercan's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/sozercan/">Sertaç Özercan</a></h4>
+
+                    <p>Read <a href="../../../../author/sozercan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">San Francisco, CA</span>
+                    <span class="author-link icon-link"><a href="http://sertacozercan.com">http://sertacozercan.com</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=How%20to%20manually%20sign%20Windows%2010%20UAP%20apps%20for%20sideloading&amp;url=http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://my-ghost-blog.com/2015/03/23/how-to-manually-sign-windows-10-uap-apps-for-sideloading/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../../../04/22/product-hunt-for-windows-10/">
+        <section class="post">
+            <h2>Product Hunt for Windows 10</h2>
+            <p>With the Windows 10 March Preview SDK release, I thought it would be good learning experience to build a…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../02/23/how-to-install-latest-intel-graphics-drivers-on-windows-10-technical-preview/">
+        <section class="post">
+            <h2>How to install latest Intel graphics drivers on Windows 10 Technical Preview</h2>
+            <p>UPDATE: Intel released official drivers for Windows 10, you can download them here. After downloading, all you need to…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://my-ghost-blog.com">Sertaç Özercan</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=7481804497"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=7481804497"></script>
+
+</body>

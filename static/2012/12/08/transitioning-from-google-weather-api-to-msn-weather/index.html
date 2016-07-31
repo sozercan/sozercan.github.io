@@ -1,0 +1,186 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Transitioning from Google Weather API to MSN Weather</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/screen.css?v=7481804497">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta name="referrer" content="origin-when-cross-origin">
+    
+    <meta property="og:site_name" content="Sertaç Özercan">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Transitioning from Google Weather API to MSN Weather">
+    <meta property="og:description" content="Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN">
+    <meta property="og:url" content="http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta property="article:published_time" content="2012-12-08T18:13:27.000Z">
+    <meta property="article:modified_time" content="2013-08-13T11:54:02.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Transitioning from Google Weather API to MSN Weather">
+    <meta name="twitter:description" content="Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN">
+    <meta name="twitter:url" content="http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Sertaç Özercan">
+    <meta name="twitter:site" content="@sozercan">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Sertaç Özercan",
+        "logo": "http://my-ghost-blog.com/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Sertaç Özercan",
+        "image": "//www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s=250&d=mm&r=x",
+        "url": "http://my-ghost-blog.com/author/sozercan/",
+        "sameAs": [
+            "http://sertacozercan.com"
+        ]
+    },
+    "headline": "Transitioning from Google Weather API to MSN Weather",
+    "url": "http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/",
+    "datePublished": "2012-12-08T18:13:27.000Z",
+    "dateModified": "2013-08-13T11:54:02.000Z",
+    "description": "Since Google killed its weather API without a warning over the summer, I have been looking for a new provider for my Weather iOS application. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses.   Recently, I came across the MSN"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.9">
+    <link rel="alternate" type="application/rss+xml" title="Sertaç Özercan" href="http://my-ghost-blog.com/rss/">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="../../../../">Home</a></li>
+            <li class="nav-projects" role="presentation"><a href="../../../../projects/">Projects</a></li>
+            <li class="nav-about" role="presentation"><a href="../../../../about-me">About</a></li>
+            <li class="nav-publications" role="presentation"><a href="../../../../publications/">Publications</a></li>
+            <li class="nav-contact" role="presentation"><a href="../../../../contact/">Contact</a></li>
+    </ul>
+        <a class="subscribe-button icon-feed" href="http://my-ghost-blog.com/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Transitioning from Google Weather API to MSN Weather</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2012-12-08">08 December 2012</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Since <a href="http://thenextweb.com/google/2012/08/28/did-google-just-quietly-kill-private-weather-api/">Google killed its weather API</a> without a warning over the summer, I have been looking for a new provider for <a href="http://sertacozercan.com/portfolio/#weather">my Weather iOS application</a>. Most of the weather data providers I found were either paid, allowed limited request calls, or had restrictive licenses. <br>
+ Recently, I came across the MSN Weather API that is quite similar to Google Weather. The feed is accessible from</p>
+
+<p><a href="http://weather.service.msn.com/data.aspx?weadegreetype=f&amp;weasearchstr=94102">http://weather.service.msn.com/data.aspx?weadegreetype=f&amp;weasearchstr=94102</a></p>
+
+<p>In the URL, <em>weadegreetype</em> can be c for celcius or f for fahrenheit, and <em>weasearchstr</em> can either be ZIP code, city, state name or even latitude, longitude. <br>
+ It provides an XML feed that includes the current and future conditions as a code and text descriptions. <a href="http://stackoverflow.com/questions/12142094/msn-weather-api-list-of-conditions">This question over at StackOverflow</a> identified various skycodes and their corresponding condition, and time. <br>
+ If you need weather condition images, you can use <a href="http://local.msn.com/worldweather.aspx">http://local.msn.com/worldweather.aspx</a> to see how the skycodes correspond to the weather images. For example, 26 (cloudy) skycode correspond to <a href="http://blu.stc.s-msn.com/as/wea3/i/en-us/law/26.gif">26.gif</a> which is the cloudy weather condition image, where the <em>imagerelativeurl</em> can be found in the feed.</p>
+
+<div><div id="post-1425">Please let me know if you have any other questions or comments about the article in the comments section.
+
+</div></div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="../../../../author/sozercan/" style="background-image: url(http://www.gravatar.com/avatar/b55d471041bacda59fdbe29c719a4f98?s&amp;)"><span class="hidden">Sertaç Özercan's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="../../../../author/sozercan/">Sertaç Özercan</a></h4>
+
+                    <p>Read <a href="../../../../author/sozercan/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">San Francisco, CA</span>
+                    <span class="author-link icon-link"><a href="http://sertacozercan.com">http://sertacozercan.com</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Transitioning%20from%20Google%20Weather%20API%20to%20MSN%20Weather&amp;url=http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://my-ghost-blog.com/2012/12/08/transitioning-from-google-weather-api-to-msn-weather/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story no-cover" href="../../10/disabling-capitalized-menu-titles-in-visual-studio-2012/">
+        <section class="post">
+            <h2>How to disable capitalized menu titles in Visual Studio 2012</h2>
+            <p>Just a quick note to self. This will restore the previously used title case menus.   To disable capitalized menus…</p>
+        </section>
+    </a>
+    <a class="read-next-story prev no-cover" href="../../../09/10/when-skeuomorphism-is-taken-too-far/">
+        <section class="post">
+            <h2>When skeuomorphism is taken too far...</h2>
+            <p>Some good examples of how skeuomorphic design can be taken too far. Link…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://my-ghost-blog.com">Sertaç Özercan</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../assets/js/jquery.fitvids.js?v=7481804497"></script>
+    <script type="text/javascript" src="../../../../assets/js/index.js?v=7481804497"></script>
+
+</body>
